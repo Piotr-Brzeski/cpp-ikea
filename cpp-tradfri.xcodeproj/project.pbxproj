@@ -12,7 +12,20 @@
 		E238930129682A7C00136A54 /* tradfri.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E238930029682A7C00136A54 /* tradfri.cpp */; };
 		E2389308296833C300136A54 /* bulb.h in Headers */ = {isa = PBXBuildFile; fileRef = E2389306296833C300136A54 /* bulb.h */; };
 		E2389309296833C300136A54 /* bulb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2389307296833C300136A54 /* bulb.cpp */; };
+		E238930C296839D200136A54 /* system.h in Headers */ = {isa = PBXBuildFile; fileRef = E238930A296839D200136A54 /* system.h */; };
+		E238930D296839D200136A54 /* system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E238930B296839D200136A54 /* system.cpp */; };
+		E238930F296842D800136A54 /* libcpp-tradfri.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E23892EF296829DA00136A54 /* libcpp-tradfri.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E2389310296842D800136A54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E23892E7296829DA00136A54 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E23892EE296829DA00136A54;
+			remoteInfo = "cpp-tradfri";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		E23892FC29682A7C00136A54 /* CopyFiles */ = {
@@ -34,6 +47,8 @@
 		E238930029682A7C00136A54 /* tradfri.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tradfri.cpp; sourceTree = "<group>"; };
 		E2389306296833C300136A54 /* bulb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bulb.h; sourceTree = "<group>"; };
 		E2389307296833C300136A54 /* bulb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bulb.cpp; sourceTree = "<group>"; };
+		E238930A296839D200136A54 /* system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = system.h; sourceTree = "<group>"; };
+		E238930B296839D200136A54 /* system.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = system.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E238930F296842D800136A54 /* libcpp-tradfri.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +76,7 @@
 				E238930529682A8700136A54 /* cpp-tradfri */,
 				E23892FF29682A7C00136A54 /* tradfri */,
 				E23892F0296829DA00136A54 /* Products */,
+				E238930E296842D800136A54 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,8 +104,17 @@
 				E23892F729682A5600136A54 /* device.cpp */,
 				E2389306296833C300136A54 /* bulb.h */,
 				E2389307296833C300136A54 /* bulb.cpp */,
+				E238930A296839D200136A54 /* system.h */,
+				E238930B296839D200136A54 /* system.cpp */,
 			);
 			path = "cpp-tradfri";
+			sourceTree = "<group>";
+		};
+		E238930E296842D800136A54 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -100,6 +126,7 @@
 			files = (
 				E23892F829682A5600136A54 /* device.h in Headers */,
 				E2389308296833C300136A54 /* bulb.h in Headers */,
+				E238930C296839D200136A54 /* system.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +161,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E2389311296842D800136A54 /* PBXTargetDependency */,
 			);
 			name = tradfri;
 			productName = tradfri;
@@ -184,6 +212,7 @@
 			files = (
 				E2389309296833C300136A54 /* bulb.cpp in Sources */,
 				E23892F929682A5600136A54 /* device.cpp in Sources */,
+				E238930D296839D200136A54 /* system.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +226,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		E2389311296842D800136A54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E23892EE296829DA00136A54 /* cpp-tradfri */;
+			targetProxy = E2389310296842D800136A54 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		E23892F1296829DA00136A54 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -204,7 +241,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -234,7 +271,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -262,7 +299,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -292,7 +329,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -335,6 +372,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PPMKVT4765;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -345,6 +383,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PPMKVT4765;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
