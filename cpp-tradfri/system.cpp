@@ -15,15 +15,21 @@ using namespace tradfri;
 
 namespace {
 
-std::vector<std::string_view> parse_ids(std::string const& array) {
-	constexpr auto delimeters = std::string_view(",]", 3);
-	std::vector<std::string_view> ids;
+std::vector<std::string> parse_ids(std::string const& array) {
+	std::vector<std::string> ids;
+	ids.reserve(array.size()/7);
 	std::size_t begin = array.find('[');
 	while(begin != std::string::npos) {
 		++begin;
-		auto end = array.find_first_of(delimeters, begin);
+		auto end = array.find(',', begin);
 		if(end != std::string::npos) {
 			ids.emplace_back(array.data() + begin, end - begin);
+		}
+		else {
+			auto end = array.find(']', begin);
+			if(end != std::string::npos) {
+				ids.emplace_back(array.data() + begin, end - begin);
+			}
 		}
 		begin = end;
 	}
