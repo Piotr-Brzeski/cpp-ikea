@@ -15,20 +15,23 @@ using namespace tradfri;
 
 namespace {
 
-std::vector<std::string> parse_ids(std::string const& array) {
+std::vector<std::string> parse_ids(std::string const& list) {
 	std::vector<std::string> ids;
-	ids.reserve(array.size()/7);
-	std::size_t begin = array.find('[');
+	auto begin = list.find('[');
 	while(begin != std::string::npos) {
 		++begin;
-		auto end = array.find(',', begin);
+		auto end = list.find(',', begin);
 		if(end != std::string::npos) {
-			ids.emplace_back(array.data() + begin, end - begin);
+			if(ids.empty()) {
+				auto expected_number_of_ids = list.size()/end;
+				ids.reserve(expected_number_of_ids);
+			}
+			ids.emplace_back(list.data() + begin, end - begin);
 		}
 		else {
-			auto end = array.find(']', begin);
+			auto end = list.find(']', begin);
 			if(end != std::string::npos) {
-				ids.emplace_back(array.data() + begin, end - begin);
+				ids.emplace_back(list.data() + begin, end - begin);
 			}
 		}
 		begin = end;
@@ -38,16 +41,23 @@ std::vector<std::string> parse_ids(std::string const& array) {
 
 }
 
-
-system::system(std::string const& ip, int port) {
-	
+system::system(std::string const& ip, std::string const& identity, std::string const& key)
+	: m_coap(ip, identity, key)
+{
 }
 
 void system::enumerate_devices() {
-	std::string all_devices = "[131093,131080,131081,131091,131083,131077,131085,131089,131090,131079,131095,131088,131097,131078,131082,131084,131087,131094,131098]";
-	auto ids = parse_ids(all_devices);
+	static auto const uri = std::string("15001");
+	auto devices_list = m_coap.get(uri);
+	auto ids = parse_ids(devices_list);
 	std::cout << "Size: " << ids.size() << std::endl;
 	for(auto& id : ids) {
-		std::cout << id << std::endl;
+		load_device(id);
 	}
+}
+
+void system::load_device(std::string const& id) {
+	static auto const uri = std::string("15001/");
+	auto device_description = m_coap.get(uri + id);
+	std::cout << (uri + id) << " : " << device_description << std::endl;
 }

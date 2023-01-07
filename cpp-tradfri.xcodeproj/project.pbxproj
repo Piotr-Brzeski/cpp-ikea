@@ -15,6 +15,9 @@
 		E238930C296839D200136A54 /* system.h in Headers */ = {isa = PBXBuildFile; fileRef = E238930A296839D200136A54 /* system.h */; };
 		E238930D296839D200136A54 /* system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E238930B296839D200136A54 /* system.cpp */; };
 		E238930F296842D800136A54 /* libcpp-tradfri.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E23892EF296829DA00136A54 /* libcpp-tradfri.a */; };
+		E2FE6105296861E100282EE4 /* coap_connection.h in Headers */ = {isa = PBXBuildFile; fileRef = E2FE6103296861E100282EE4 /* coap_connection.h */; };
+		E2FE6106296861E100282EE4 /* coap_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2FE6104296861E100282EE4 /* coap_connection.cpp */; };
+		E2FE61072968681500282EE4 /* libcpp-coap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2FE60FC296858F400282EE4 /* libcpp-coap.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,6 +27,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = E23892EE296829DA00136A54;
 			remoteInfo = "cpp-tradfri";
+		};
+		E2FE60FB296858F400282EE4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2FE60F4296858F400282EE4 /* cpp-coap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E24D1DD32944918100DC293B;
+			remoteInfo = "cpp-coap";
+		};
+		E2FE60FD296858F400282EE4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2FE60F4296858F400282EE4 /* cpp-coap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E24D1DEF2945383200DC293B;
+			remoteInfo = server;
+		};
+		E2FE60FF296858F400282EE4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2FE60F4296858F400282EE4 /* cpp-coap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E24D1DFA294538ED00DC293B;
+			remoteInfo = client;
+		};
+		E2FE6101296858F400282EE4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2FE60F4296858F400282EE4 /* cpp-coap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E23892DA2966FEA500136A54;
+			remoteInfo = "dtls-client";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -49,6 +80,9 @@
 		E2389307296833C300136A54 /* bulb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bulb.cpp; sourceTree = "<group>"; };
 		E238930A296839D200136A54 /* system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = system.h; sourceTree = "<group>"; };
 		E238930B296839D200136A54 /* system.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = system.cpp; sourceTree = "<group>"; };
+		E2FE60F4296858F400282EE4 /* cpp-coap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "cpp-coap.xcodeproj"; path = "cpp-coap/cpp-coap.xcodeproj"; sourceTree = "<group>"; };
+		E2FE6103296861E100282EE4 /* coap_connection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = coap_connection.h; sourceTree = "<group>"; };
+		E2FE6104296861E100282EE4 /* coap_connection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = coap_connection.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2FE61072968681500282EE4 /* libcpp-coap.a in Frameworks */,
 				E238930F296842D800136A54 /* libcpp-tradfri.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,6 +108,7 @@
 		E23892E6296829DA00136A54 = {
 			isa = PBXGroup;
 			children = (
+				E2FE60F4296858F400282EE4 /* cpp-coap.xcodeproj */,
 				E238930529682A8700136A54 /* cpp-tradfri */,
 				E23892FF29682A7C00136A54 /* tradfri */,
 				E23892F0296829DA00136A54 /* Products */,
@@ -106,6 +142,8 @@
 				E2389307296833C300136A54 /* bulb.cpp */,
 				E238930A296839D200136A54 /* system.h */,
 				E238930B296839D200136A54 /* system.cpp */,
+				E2FE6103296861E100282EE4 /* coap_connection.h */,
+				E2FE6104296861E100282EE4 /* coap_connection.cpp */,
 			);
 			path = "cpp-tradfri";
 			sourceTree = "<group>";
@@ -115,6 +153,17 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E2FE60F5296858F400282EE4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E2FE60FC296858F400282EE4 /* libcpp-coap.a */,
+				E2FE60FE296858F400282EE4 /* server */,
+				E2FE6100296858F400282EE4 /* client */,
+				E2FE6102296858F400282EE4 /* dtls-client */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +176,7 @@
 				E23892F829682A5600136A54 /* device.h in Headers */,
 				E2389308296833C300136A54 /* bulb.h in Headers */,
 				E238930C296839D200136A54 /* system.h in Headers */,
+				E2FE6105296861E100282EE4 /* coap_connection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +247,12 @@
 			mainGroup = E23892E6296829DA00136A54;
 			productRefGroup = E23892F0296829DA00136A54 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E2FE60F5296858F400282EE4 /* Products */;
+					ProjectRef = E2FE60F4296858F400282EE4 /* cpp-coap.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				E23892EE296829DA00136A54 /* cpp-tradfri */,
@@ -205,6 +261,37 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		E2FE60FC296858F400282EE4 /* libcpp-coap.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libcpp-coap.a";
+			remoteRef = E2FE60FB296858F400282EE4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2FE60FE296858F400282EE4 /* server */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = server;
+			remoteRef = E2FE60FD296858F400282EE4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2FE6100296858F400282EE4 /* client */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = client;
+			remoteRef = E2FE60FF296858F400282EE4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2FE6102296858F400282EE4 /* dtls-client */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "dtls-client";
+			remoteRef = E2FE6101296858F400282EE4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E23892EC296829DA00136A54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -212,6 +299,7 @@
 			files = (
 				E2389309296833C300136A54 /* bulb.cpp in Sources */,
 				E23892F929682A5600136A54 /* device.cpp in Sources */,
+				E2FE6106296861E100282EE4 /* coap_connection.cpp in Sources */,
 				E238930D296839D200136A54 /* system.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +438,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PPMKVT4765;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = "cpp-coap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -361,6 +450,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PPMKVT4765;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = "cpp-coap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -369,22 +459,36 @@
 		E238930329682A7C00136A54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PPMKVT4765;
-				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				LIBRARY_SEARCH_PATHS = /opt/homebrew/lib;
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
 		E238930429682A7C00136A54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PPMKVT4765;
-				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				LIBRARY_SEARCH_PATHS = /opt/homebrew/lib;
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

@@ -11,7 +11,7 @@
 
 int main(int argc, const char * argv[]) {
 	try {
-		auto system = tradfri::system("127.0.0.1", 0);
+		auto system = tradfri::system("172.0.0.1", "identity", "key");
 		system.enumerate_devices();
 		return 0;
 	}

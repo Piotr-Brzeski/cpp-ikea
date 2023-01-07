@@ -15,6 +15,11 @@ namespace tradfri {
 class bulb: public device {
 public:
 	bulb(std::string const& id, std::string const& name);
+	
+private:
+	bool         m_enabled;
+	std::uint8_t m_brightness;   // 1, 44, 87, 130, 173, 216, 254
+	std::uint8_t m_themperature; // 0-4
 };
 
 }

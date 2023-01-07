@@ -1,0 +1,32 @@
+//
+//  coap_connection.h
+//  cpp-tradfri
+//
+//  Created by Piotr Brzeski on 2023-01-06.
+//  Copyright © 2023 Brzeski.net. All rights reserved.
+//
+
+#pragma once
+
+#include <string>
+
+namespace coap {
+	class client;
+	class session;
+}
+
+namespace tradfri {
+
+class coap_connection {
+public:
+	coap_connection(std::string const& ip, std::string const& identity, std::string const& key);
+	~coap_connection();
+	
+	std::string get(std::string const& uri);
+	
+private:
+	coap::client*  m_coap_client = nullptr;
+	coap::session* m_coap_session = nullptr;
+};
+
+}

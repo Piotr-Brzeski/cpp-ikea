@@ -8,15 +8,20 @@
 
 #pragma once
 
-#include <string>
+#include "coap_connection.h"
 
 namespace tradfri {
 
 class system {
 public:
-	system(std::string const& ip, int port);
+	system(std::string const& ip, std::string const& identity, std::string const& key);
 	
 	void enumerate_devices();
+	
+private:
+	void load_device(std::string const& id);
+	
+	coap_connection m_coap;
 };
 
 }
