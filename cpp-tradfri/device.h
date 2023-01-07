@@ -8,17 +8,28 @@
 
 #pragma once
 
-#include <string>
+#include "coap_connection.h"
 
 namespace tradfri {
 
+class json;
+
 class device {
 public:
-	device(std::string const& id, std::string const& name);
+	static std::string load(coap_connection& coap, std::string const& id);
+	std::string load();
+	
+	std::string const& name() const {
+		return m_name;
+	}
 	
 protected:
-	std::string m_id;
-	std::string m_name;
+	device(std::string&& id, coap_connection& coap, json const& json);
+	
+	std::string      m_id;
+	std::string      m_name;
+	coap_connection& m_coap;
+	std::string      m_uri;
 };
 
 }

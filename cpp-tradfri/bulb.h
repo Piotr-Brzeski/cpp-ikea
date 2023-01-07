@@ -14,12 +14,20 @@ namespace tradfri {
 
 class bulb: public device {
 public:
-	bulb(std::string const& id, std::string const& name);
+	static constexpr int system_id = 2;
+	static bulb load(std::string&& id, coap_connection& coap, json const& json);
+	
+	void update();
+	std::uint8_t brightness() const {
+		return m_brightness;
+	}
+	void set(std::uint8_t brightness);
 	
 private:
-	bool         m_enabled;
-	std::uint8_t m_brightness;   // 1, 44, 87, 130, 173, 216, 254
-	std::uint8_t m_themperature; // 0-4
+	bulb(std::string&& id, coap_connection& coap, json const& json);
+	void update(json const& json);
+	
+	std::uint8_t m_brightness;
 };
 
 }

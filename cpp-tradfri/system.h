@@ -9,6 +9,8 @@
 #pragma once
 
 #include "coap_connection.h"
+#include "bulb.h"
+#include <vector>
 
 namespace tradfri {
 
@@ -18,10 +20,15 @@ public:
 	
 	void enumerate_devices();
 	
-private:
-	void load_device(std::string const& id);
+	std::vector<bulb>& bulbs() {
+		return m_bulbs;
+	}
 	
-	coap_connection m_coap;
+private:
+	void load_device(std::string id);
+	
+	coap_connection   m_coap;
+	std::vector<bulb> m_bulbs;
 };
 
 }

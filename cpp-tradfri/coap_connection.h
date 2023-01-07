@@ -23,6 +23,7 @@ public:
 	~coap_connection();
 	
 	std::string get(std::string const& uri);
+	void put(std::string const& uri, std::string const& data);
 	
 private:
 	coap::client*  m_coap_client = nullptr;

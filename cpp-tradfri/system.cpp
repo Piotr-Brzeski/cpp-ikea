@@ -7,9 +7,10 @@
 //
 
 #include "system.h"
+#include "json.h"
+#include "bulb.h"
 #include <vector>
-
-#include <iostream>
+//#include <algorithm>
 
 using namespace tradfri;
 
@@ -50,14 +51,22 @@ void system::enumerate_devices() {
 	static auto const uri = std::string("15001");
 	auto devices_list = m_coap.get(uri);
 	auto ids = parse_ids(devices_list);
-	std::cout << "Size: " << ids.size() << std::endl;
 	for(auto& id : ids) {
 		load_device(id);
 	}
+//	std::sort(m_bulbs.begin(), m_bulbs.end(), [](auto& b1, auto& b2){ return b1.name() < b2.name(); });
 }
 
-void system::load_device(std::string const& id) {
-	static auto const uri = std::string("15001/");
-	auto device_description = m_coap.get(uri + id);
-	std::cout << (uri + id) << " : " << device_description << std::endl;
+void system::load_device(std::string id) {
+	static auto const type_key = std::string("5750");
+	auto device_description = device::load(m_coap, id);
+	auto device_json = json(std::move(device_description));
+	auto type = device_json[type_key].get_int();
+	switch(type) {
+		case bulb::system_id:
+			m_bulbs.push_back(bulb::load(std::move(id), m_coap, device_json));
+			break;
+		default:
+			break;
+	}
 }

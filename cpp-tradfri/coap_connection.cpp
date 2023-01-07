@@ -27,3 +27,7 @@ coap_connection::~coap_connection() {
 std::string coap_connection::get(std::string const& uri) {
 	return m_coap_session->get(uri);
 }
+
+void coap_connection::put(std::string const& uri, std::string const& data) {
+	m_coap_session->put(uri, data);
+}
