@@ -10,6 +10,7 @@
 
 #include "coap_connection.h"
 #include "bulb.h"
+#include "plug.h"
 #include <vector>
 
 namespace tradfri {
@@ -23,12 +24,16 @@ public:
 	std::vector<bulb>& bulbs() {
 		return m_bulbs;
 	}
-	
+	std::vector<plug>& plugs() {
+		return m_plugs;
+	}
+
 private:
 	void load_device(std::string id);
 	
 	coap_connection   m_coap;
 	std::vector<bulb> m_bulbs;
+	std::vector<plug> m_plugs;
 };
 
 }

@@ -12,6 +12,8 @@
 #include <vector>
 //#include <algorithm>
 
+//#include <iostream>
+
 using namespace tradfri;
 
 namespace {
@@ -66,7 +68,11 @@ void system::load_device(std::string id) {
 		case bulb::system_id:
 			m_bulbs.push_back(bulb::load(std::move(id), m_coap, device_json));
 			break;
+		case plug::system_id:
+			m_plugs.push_back(plug::load(std::move(id), m_coap, device_json));
+			break;
 		default:
+//			std::cout << id << ", type=" << type << ", " << device_json["9001"].get_string() << std::endl;
 			break;
 	}
 }

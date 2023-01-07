@@ -16,6 +16,8 @@
 		E238930D296839D200136A54 /* system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E238930B296839D200136A54 /* system.cpp */; };
 		E238930F296842D800136A54 /* libcpp-tradfri.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E23892EF296829DA00136A54 /* libcpp-tradfri.a */; };
 		E23A885A2969763F009BE9F4 /* json.h in Headers */ = {isa = PBXBuildFile; fileRef = E23A88582969763F009BE9F4 /* json.h */; };
+		E23A88602969E3BF009BE9F4 /* plug.h in Headers */ = {isa = PBXBuildFile; fileRef = E23A885E2969E3BF009BE9F4 /* plug.h */; };
+		E23A88612969E3BF009BE9F4 /* plug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E23A885F2969E3BF009BE9F4 /* plug.cpp */; };
 		E2FE6105296861E100282EE4 /* coap_connection.h in Headers */ = {isa = PBXBuildFile; fileRef = E2FE6103296861E100282EE4 /* coap_connection.h */; };
 		E2FE6106296861E100282EE4 /* coap_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2FE6104296861E100282EE4 /* coap_connection.cpp */; };
 		E2FE61072968681500282EE4 /* libcpp-coap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2FE60FC296858F400282EE4 /* libcpp-coap.a */; };
@@ -118,6 +120,8 @@
 		E23A88532968F401009BE9F4 /* stdint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdint.h; sourceTree = "<group>"; };
 		E23A88582969763F009BE9F4 /* json.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
 		E23A885C296976CE009BE9F4 /* exception.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = exception.h; sourceTree = "<group>"; };
+		E23A885E2969E3BF009BE9F4 /* plug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plug.h; sourceTree = "<group>"; };
+		E23A885F2969E3BF009BE9F4 /* plug.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = plug.cpp; sourceTree = "<group>"; };
 		E2FE60F4296858F400282EE4 /* cpp-coap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "cpp-coap.xcodeproj"; path = "cpp-coap/cpp-coap.xcodeproj"; sourceTree = "<group>"; };
 		E2FE6103296861E100282EE4 /* coap_connection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = coap_connection.h; sourceTree = "<group>"; };
 		E2FE6104296861E100282EE4 /* coap_connection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = coap_connection.cpp; sourceTree = "<group>"; };
@@ -185,6 +189,8 @@
 				E2FE6104296861E100282EE4 /* coap_connection.cpp */,
 				E23A88582969763F009BE9F4 /* json.h */,
 				E23A885C296976CE009BE9F4 /* exception.h */,
+				E23A885E2969E3BF009BE9F4 /* plug.h */,
+				E23A885F2969E3BF009BE9F4 /* plug.cpp */,
 			);
 			path = "cpp-tradfri";
 			sourceTree = "<group>";
@@ -280,6 +286,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E23A88602969E3BF009BE9F4 /* plug.h in Headers */,
 				E23892F829682A5600136A54 /* device.h in Headers */,
 				E2389308296833C300136A54 /* bulb.h in Headers */,
 				E238930C296839D200136A54 /* system.h in Headers */,
@@ -408,6 +415,7 @@
 				E2389309296833C300136A54 /* bulb.cpp in Sources */,
 				E23892F929682A5600136A54 /* device.cpp in Sources */,
 				E2FE6106296861E100282EE4 /* coap_connection.cpp in Sources */,
+				E23A88612969E3BF009BE9F4 /* plug.cpp in Sources */,
 				E238930D296839D200136A54 /* system.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
