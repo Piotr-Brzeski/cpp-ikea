@@ -9,6 +9,7 @@
 #pragma once
 
 #include "coap_connection.h"
+#include <chrono>
 
 namespace tradfri {
 
@@ -16,8 +17,10 @@ class json;
 
 class device {
 public:
+	device(device const&) = delete;
+	device(device&&) = default;
+	
 	static std::string load(coap_connection& coap, std::string const& id);
-	std::string load();
 	
 	std::string const& name() const {
 		return m_name;
@@ -25,11 +28,16 @@ public:
 	
 protected:
 	device(std::string&& id, coap_connection& coap, json const& json);
+	bool needs_update() const;
+	std::string load();
+	void set(std::string const& state);
 	
-	std::string      m_id;
-	std::string      m_name;
-	coap_connection& m_coap;
-	std::string      m_uri;
+private:
+	std::string                           m_id;
+	std::string                           m_name;
+	std::string                           m_uri;
+	coap_connection&                      m_coap;
+	std::chrono::steady_clock::time_point m_last_update_time;
 };
 
 }

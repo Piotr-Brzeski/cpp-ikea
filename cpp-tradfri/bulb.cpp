@@ -17,6 +17,7 @@ using namespace tradfri;
 namespace {
 
 constexpr auto brightness_levels = std::array<int, 8>{0, 1, 44, 87, 130, 173, 216, 254};
+constexpr auto max_brightness = brightness_levels.size() - 1;
 
 std::uint8_t brightness(int raw_value) {
 	if(raw_value < brightness_levels[1]) return 0;
@@ -62,14 +63,33 @@ bulb bulb::load(std::string&& id, coap_connection& coap, json const& json) {
 	return new_bulb;
 }
 
-void bulb::update() {
-	update(json(device::load()));
+std::uint8_t bulb::brightness(){
+	if(needs_update()) {
+		update();
+	}
+	return m_brightness;
 }
 
 void bulb::set(std::uint8_t brightness) {
-	auto& data = command(brightness);
-	m_coap.put(m_uri, data);
+	auto& state_command = command(brightness);
+	device::set(state_command);
 	m_brightness = brightness;
+}
+
+void bulb::toggle() {
+	set(brightness() == 0 ? max_brightness : 0);
+}
+
+void bulb::increase() {
+	if(brightness() < max_brightness) {
+		set(m_brightness + 1);
+	}
+}
+
+void bulb::decrease() {
+	if(brightness() > 0) {
+		set(m_brightness - 1);
+	}
 }
 
 void bulb::update(json const& json) {
@@ -86,4 +106,8 @@ void bulb::update(json const& json) {
 		m_brightness = 0;
 	}
 //	auto temperature = status["5706"].get_string();
+}
+
+void bulb::update() {
+	update(json(device::load()));
 }

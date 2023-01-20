@@ -10,8 +10,8 @@
 #include "json.h"
 #include "bulb.h"
 #include <vector>
+#include <variant>
 //#include <algorithm>
-
 //#include <iostream>
 
 using namespace tradfri;
@@ -42,6 +42,21 @@ std::vector<std::string> parse_ids(std::string const& list) {
 	return ids;
 }
 
+template<typename Devices, typename... Args>
+std::variant<bulb*, plug*> get_device(std::string const& device_name, Devices& devices, Args&... more_devices) {
+	for(auto& device : devices) {
+		if(device.name() == device_name) {
+			return &device;
+		}
+	}
+	if constexpr(sizeof...(more_devices) > 0) {
+		return get_device(device_name, more_devices...);
+	}
+	else {
+		throw exception("Device \"" + device_name + "\" not found.");
+	}
+}
+
 }
 
 system::system(std::string const& ip, std::string const& identity, std::string const& key)
@@ -57,6 +72,11 @@ void system::enumerate_devices() {
 		load_device(id);
 	}
 //	std::sort(m_bulbs.begin(), m_bulbs.end(), [](auto& b1, auto& b2){ return b1.name() < b2.name(); });
+}
+
+std::function<void()> system::toggle_operation(std::string const& device_name) {
+	auto device = get_device(device_name, m_bulbs, m_plugs);
+	return [device](){ std::visit([](auto&& device){ device->toggle(); }, device); };
 }
 
 void system::load_device(std::string id) {

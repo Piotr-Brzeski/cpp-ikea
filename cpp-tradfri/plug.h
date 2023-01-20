@@ -17,16 +17,17 @@ public:
 	static constexpr int system_id = 3;
 	static plug load(std::string&& id, coap_connection& coap, json const& json);
 	
-	void update();
-	bool enabled() const {
-		return m_enabled;
-	}
+	bool enabled();
+	
 	void set(bool enabled);
 	void toggle();
+	void increase();
+	void decrease();
 	
 private:
 	plug(std::string&& id, coap_connection& coap, json const& json);
 	void update(json const& json);
+	void update();
 	
 	bool m_enabled;
 };

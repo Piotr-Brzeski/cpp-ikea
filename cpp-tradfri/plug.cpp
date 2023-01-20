@@ -36,18 +36,33 @@ plug plug::load(std::string&& id, coap_connection& coap, json const& json) {
 	return new_plug;
 }
 
-void plug::update() {
-	update(json(device::load()));
+bool plug::enabled() {
+	if(needs_update()) {
+		update();
+	}
+	return m_enabled;
 }
 
 void plug::set(bool enabled) {
-	auto& data = command(enabled);
-	m_coap.put(m_uri, data);
+	auto& state_command = command(enabled);
+	device::set(state_command);
 	m_enabled = enabled;
 }
 
 void plug::toggle() {
-	set(!m_enabled);
+	set(!enabled());
+}
+
+void plug::increase() {
+	if(!enabled()) {
+		set(true);
+	}
+}
+
+void plug::decrease() {
+	if(enabled()) {
+		set(false);
+	}
 }
 
 void plug::update(json const& json) {
@@ -55,4 +70,8 @@ void plug::update(json const& json) {
 	static const auto enabled_key = std::string("5850");
 	auto enabled = json[status_key][0][enabled_key].get_int();
 	m_enabled = enabled == 1;
+}
+
+void plug::update() {
+	update(json(device::load()));
 }

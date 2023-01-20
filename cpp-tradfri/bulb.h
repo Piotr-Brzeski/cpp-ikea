@@ -17,15 +17,17 @@ public:
 	static constexpr int system_id = 2;
 	static bulb load(std::string&& id, coap_connection& coap, json const& json);
 	
-	void update();
-	std::uint8_t brightness() const {
-		return m_brightness;
-	}
+	std::uint8_t brightness();
+	
 	void set(std::uint8_t brightness);
+	void toggle();
+	void increase();
+	void decrease();
 	
 private:
 	bulb(std::string&& id, coap_connection& coap, json const& json);
 	void update(json const& json);
+	void update();
 	
 	std::uint8_t m_brightness;
 };

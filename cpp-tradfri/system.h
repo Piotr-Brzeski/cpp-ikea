@@ -12,6 +12,7 @@
 #include "bulb.h"
 #include "plug.h"
 #include <vector>
+#include <functional>
 
 namespace tradfri {
 
@@ -27,7 +28,9 @@ public:
 	std::vector<plug>& plugs() {
 		return m_plugs;
 	}
-
+	
+	std::function<void()> toggle_operation(std::string const& device_name);
+	
 private:
 	void load_device(std::string id);
 	
