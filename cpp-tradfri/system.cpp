@@ -59,6 +59,11 @@ std::variant<bulb*, plug*> get_device(std::string const& device_name, Devices& d
 
 }
 
+system::system(configuration const& configuration)
+	: m_coap(configuration.ip, configuration.identity, configuration.key)
+{
+}
+
 system::system(std::string const& ip, std::string const& identity, std::string const& key)
 	: m_coap(ip, identity, key)
 {

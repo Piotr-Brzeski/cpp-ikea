@@ -18,6 +18,13 @@ namespace tradfri {
 
 class system {
 public:
+	struct configuration {
+		std::string ip;
+		std::string identity;
+		std::string key;
+	};
+	
+	system(configuration const& configuration);
 	system(std::string const& ip, std::string const& identity, std::string const& key);
 	
 	void enumerate_devices();

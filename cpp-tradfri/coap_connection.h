@@ -22,6 +22,9 @@ public:
 	coap_connection(std::string const& ip, std::string const& identity, std::string const& key);
 	~coap_connection();
 	
+	coap_connection(coap_connection const&) = delete;
+	coap_connection(coap_connection&&) = delete;
+	
 	std::string get(std::string const& uri);
 	void put(std::string const& uri, std::string const& data);
 	
