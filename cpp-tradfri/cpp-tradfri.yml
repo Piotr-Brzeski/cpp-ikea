@@ -1,0 +1,47 @@
+targets:
+  cpp-tradfri:
+    platform: macOS
+    type: library.static
+    settings:
+      HEADER_SEARCH_PATHS: ${SRCROOT}/cpp-coap
+      SYSTEM_HEADER_SEARCH_PATHS: ${SRCROOT}/rapidjson
+    sources:
+      - path: bulb.cpp
+        group: cpp-tradfri
+      - path: bulb.h
+        group: cpp-tradfri
+        buildPhase: none
+      - path: coap_connection.cpp
+        group: cpp-tradfri
+      - path: coap_connection.h
+        group: cpp-tradfri
+        buildPhase: none
+      - path: controller.cpp
+        group: cpp-tradfri
+      - path: controller.h
+        group: cpp-tradfri
+        buildPhase: none
+      - path: device.cpp
+        group: cpp-tradfri
+      - path: device.h
+        group: cpp-tradfri
+        buildPhase: none
+      - path: exception.h
+        group: cpp-tradfri
+        buildPhase: none
+      - path: json.h
+        group: cpp-tradfri
+        buildPhase: none
+      - path: plug.cpp
+        group: cpp-tradfri
+      - path: plug.h
+        group: cpp-tradfri
+        buildPhase: none
+      - path: protocol.h
+        group: cpp-tradfri
+        buildPhase: none
+      - path: system.cpp
+        group: cpp-tradfri
+      - path: system.h
+        group: cpp-tradfri
+        buildPhase: none

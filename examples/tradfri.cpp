@@ -8,6 +8,9 @@
 
 #include <cpp-tradfri/system.h>
 #include <iostream>
+#include <fstream>
+
+#include "configuration.h"
 
 std::uint8_t load() {
 	std::string value;
@@ -17,7 +20,7 @@ std::uint8_t load() {
 
 int main(int argc, const char * argv[]) {
 	try {
-		auto system = tradfri::system("172.0.0.1", "identity", "key");
+		auto system = tradfri::system(configuration::ip, configuration::identity, configuration::key);
 		system.enumerate_devices();
 		std::vector<std::function<void()>> operations;
 		auto& bulbs = system.bulbs();
