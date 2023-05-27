@@ -9,11 +9,10 @@
 #pragma once
 
 #include "coap_connection.h"
+#include "json.h"
 #include <chrono>
 
 namespace tradfri {
-
-class json;
 
 class device {
 public:

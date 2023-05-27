@@ -7,7 +7,6 @@
 //
 
 #include "device.h"
-#include "json.h"
 
 using namespace tradfri;
 

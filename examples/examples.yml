@@ -8,7 +8,9 @@ targets:
       - target: cpp-coap
         link: true
     settings:
-      HEADER_SEARCH_PATHS: ${SRCROOT}
+      HEADER_SEARCH_PATHS:
+        - ${SRCROOT}
+        - ${SRCROOT}/cpp-data-format
       LIBRARY_SEARCH_PATHS: /opt/homebrew/lib
       OTHER_LDFLAGS: -lcoap-3-openssl -lssl
       _LINUX_OTHER_LDFLAGS: -lcoap-3-gnutls

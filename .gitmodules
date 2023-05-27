@@ -1,3 +1,6 @@
 [submodule "cpp-coap"]
 	path = cpp-coap
 	url = https://github.com/Piotr-Brzeski/cpp-coap.git
+[submodule "cpp-data-format"]
+	path = cpp-data-format
+	url = https://github.com/Piotr-Brzeski/cpp-data-format.git

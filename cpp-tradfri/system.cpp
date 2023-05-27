@@ -9,6 +9,7 @@
 #include "system.h"
 #include "json.h"
 #include "bulb.h"
+#include "exception.h"
 #include <vector>
 #include <variant>
 //#include <algorithm>

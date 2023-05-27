@@ -3,8 +3,10 @@ targets:
     platform: macOS
     type: library.static
     settings:
-      HEADER_SEARCH_PATHS: ${SRCROOT}/cpp-coap
-      SYSTEM_HEADER_SEARCH_PATHS: ${SRCROOT}/rapidjson
+      HEADER_SEARCH_PATHS:
+        - ${SRCROOT}/cpp-coap
+        - ${SRCROOT}/cpp-data-format
+      # SYSTEM_HEADER_SEARCH_PATHS: ${SRCROOT}/rapidjson
     sources:
       - path: bulb.cpp
         group: cpp-tradfri

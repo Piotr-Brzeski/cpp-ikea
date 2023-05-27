@@ -8,7 +8,6 @@
 
 #include "bulb.h"
 #include "exception.h"
-#include "json.h"
 #include <array>
 #include <vector>
 
