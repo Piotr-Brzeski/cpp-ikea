@@ -18,11 +18,6 @@ targets:
       - path: coap_connection.h
         group: cpp-tradfri
         buildPhase: none
-      - path: controller.cpp
-        group: cpp-tradfri
-      - path: controller.h
-        group: cpp-tradfri
-        buildPhase: none
       - path: device.cpp
         group: cpp-tradfri
       - path: device.h
