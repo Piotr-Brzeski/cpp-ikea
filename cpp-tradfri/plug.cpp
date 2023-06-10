@@ -25,13 +25,13 @@ std::string const& command(bool enabled) {
 
 }
 
-plug::plug(std::string&& id, coap_connection& coap, json const& json)
-	: device(std::move(id), coap, json)
+plug::plug(std::string const& id, coap_connection& coap, json const& json)
+	: device(device::uri_prefix + id, coap, json)
 {
 }
 
-plug plug::load(std::string&& id, coap_connection& coap, json const& json) {
-	auto new_plug = plug(std::move(id), coap, json);
+plug plug::load(std::string const& id, coap_connection& coap, json const& json) {
+	auto new_plug = plug(id, coap, json);
 	new_plug.update(json);
 	return new_plug;
 }

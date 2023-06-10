@@ -39,7 +39,7 @@ public:
 	std::function<void()> toggle_operation(std::string const& device_name);
 	
 private:
-	void load_device(std::string id);
+	void load_device(std::string const& id);
 	
 	coap_connection   m_coap;
 	std::vector<bulb> m_bulbs;

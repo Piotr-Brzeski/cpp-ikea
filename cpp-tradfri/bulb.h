@@ -8,28 +8,20 @@
 
 #pragma once
 
-#include "device.h"
+#include "device_with_brightness.h"
 
 namespace tradfri {
 
-class bulb: public device {
+class bulb: public device_with_brightness {
 public:
 	static constexpr int system_id = 2;
-	static bulb load(std::string&& id, coap_connection& coap, json const& json);
-	
-	std::uint8_t brightness();
-	
-	void set(std::uint8_t brightness);
-	void toggle();
-	void increase();
-	void decrease();
+	static bulb load(std::string const& id, coap_connection& coap, json const& json);
 	
 private:
-	bulb(std::string&& id, coap_connection& coap, json const& json);
+	bulb(std::string const& id, coap_connection& coap, json const& json);
 	void update(json const& json);
-	void update();
-	
-	std::uint8_t m_brightness;
+	void update() override;
+	std::string const& command(std::uint8_t brightness) override;
 };
 
 }

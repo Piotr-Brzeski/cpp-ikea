@@ -13,5 +13,6 @@
 namespace tradfri {
 
 using json = format::json;
+using json_value = format::value_wrapper;
 
 }

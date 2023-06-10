@@ -15,7 +15,7 @@ namespace tradfri {
 class plug: public device {
 public:
 	static constexpr int system_id = 3;
-	static plug load(std::string&& id, coap_connection& coap, json const& json);
+	static plug load(std::string const& id, coap_connection& coap, json const& json);
 	
 	bool enabled();
 	
@@ -25,7 +25,7 @@ public:
 	void decrease();
 	
 private:
-	plug(std::string&& id, coap_connection& coap, json const& json);
+	plug(std::string const& id, coap_connection& coap, json const& json);
 	void update(json const& json);
 	void update();
 	

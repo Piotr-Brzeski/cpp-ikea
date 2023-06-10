@@ -71,13 +71,20 @@ system::system(std::string const& ip, std::string const& identity, std::string c
 }
 
 void system::enumerate_devices() {
-	static auto const uri = std::string("15001");
-	auto devices_list = m_coap.get(uri);
-	auto ids = parse_ids(devices_list);
+	static auto const devices_uri = std::string("15001");
+	static auto const groups_uri = std::string("15004");
+	auto list = m_coap.get(devices_uri);
+	auto ids = parse_ids(list);
 	for(auto& id : ids) {
 		load_device(id);
 	}
 //	std::sort(m_bulbs.begin(), m_bulbs.end(), [](auto& b1, auto& b2){ return b1.name() < b2.name(); });
+	
+	list = m_coap.get(groups_uri);
+	ids = parse_ids(list);
+//	for(auto& id : ids) {
+//		load_device(id);
+//	}
 }
 
 std::function<void()> system::toggle_operation(std::string const& device_name) {
@@ -85,17 +92,17 @@ std::function<void()> system::toggle_operation(std::string const& device_name) {
 	return [device](){ std::visit([](auto&& device){ device->toggle(); }, device); };
 }
 
-void system::load_device(std::string id) {
+void system::load_device(std::string const& id) {
 	static auto const type_key = std::string("5750");
 	auto device_description = device::load(m_coap, id);
 	auto device_json = json(std::move(device_description));
 	auto type = device_json[type_key].get_int();
 	switch(type) {
 		case bulb::system_id:
-			m_bulbs.push_back(bulb::load(std::move(id), m_coap, device_json));
+			m_bulbs.push_back(bulb::load(id, m_coap, device_json));
 			break;
 		case plug::system_id:
-			m_plugs.push_back(plug::load(std::move(id), m_coap, device_json));
+			m_plugs.push_back(plug::load(id, m_coap, device_json));
 			break;
 		default:
 //			std::cout << id << ", type=" << type << ", " << device_json["9001"].get_string() << std::endl;

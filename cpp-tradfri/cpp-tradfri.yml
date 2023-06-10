@@ -23,6 +23,11 @@ targets:
       - path: device.h
         group: cpp-tradfri
         buildPhase: none
+      - path: device_with_brightness.cpp
+        group: cpp-tradfri
+      - path: device_with_brightness.h
+        group: cpp-tradfri
+        buildPhase: none
       - path: exception.h
         group: cpp-tradfri
         buildPhase: none
@@ -32,9 +37,6 @@ targets:
       - path: plug.cpp
         group: cpp-tradfri
       - path: plug.h
-        group: cpp-tradfri
-        buildPhase: none
-      - path: protocol.h
         group: cpp-tradfri
         buildPhase: none
       - path: system.cpp

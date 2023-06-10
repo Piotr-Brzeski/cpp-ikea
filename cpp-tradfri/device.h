@@ -26,15 +26,15 @@ public:
 	}
 	
 protected:
-	device(std::string&& id, coap_connection& coap, json const& json);
+	static std::string const uri_prefix;
+	device(std::string&& uri, coap_connection& coap, json const& json);
 	bool needs_update() const;
 	std::string load();
 	void set(std::string const& state);
 	
 private:
-	std::string                           m_id;
-	std::string                           m_name;
 	std::string                           m_uri;
+	std::string                           m_name;
 	coap_connection&                      m_coap;
 	std::chrono::steady_clock::time_point m_last_update_time;
 };
