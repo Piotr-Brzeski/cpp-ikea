@@ -12,7 +12,6 @@
 #include "exception.h"
 #include <vector>
 #include <variant>
-//#include <algorithm>
 //#include <iostream>
 
 using namespace tradfri;
@@ -44,7 +43,7 @@ std::vector<std::string> parse_ids(std::string const& list) {
 }
 
 template<typename Devices, typename... Args>
-std::variant<bulb*, plug*> get_device(std::string const& device_name, Devices& devices, Args&... more_devices) {
+std::variant<bulb*, plug*, group*> get_device(std::string const& device_name, Devices& devices, Args&... more_devices) {
 	for(auto& device : devices) {
 		if(device.name() == device_name) {
 			return &device;
@@ -78,17 +77,15 @@ void system::enumerate_devices() {
 	for(auto& id : ids) {
 		load_device(id);
 	}
-//	std::sort(m_bulbs.begin(), m_bulbs.end(), [](auto& b1, auto& b2){ return b1.name() < b2.name(); });
-	
 	list = m_coap.get(groups_uri);
 	ids = parse_ids(list);
-//	for(auto& id : ids) {
-//		load_device(id);
-//	}
+	for(auto& id : ids) {
+		load_group(id);
+	}
 }
 
 std::function<void()> system::toggle_operation(std::string const& device_name) {
-	auto device = get_device(device_name, m_bulbs, m_plugs);
+	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
 	return [device](){ std::visit([](auto&& device){ device->toggle(); }, device); };
 }
 
@@ -108,4 +105,10 @@ void system::load_device(std::string const& id) {
 //			std::cout << id << ", type=" << type << ", " << device_json["9001"].get_string() << std::endl;
 			break;
 	}
+}
+
+void system::load_group(std::string const& id) {
+	auto group_description = group::load(m_coap, id);
+	auto group_json = json(std::move(group_description));
+	m_groups.push_back(group::load(id, m_coap, group_json));
 }

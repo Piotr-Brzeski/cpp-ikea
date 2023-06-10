@@ -31,6 +31,11 @@ targets:
       - path: exception.h
         group: cpp-tradfri
         buildPhase: none
+      - path: group.cpp
+        group: cpp-tradfri
+      - path: group.h
+        group: cpp-tradfri
+        buildPhase: none
       - path: json.h
         group: cpp-tradfri
         buildPhase: none

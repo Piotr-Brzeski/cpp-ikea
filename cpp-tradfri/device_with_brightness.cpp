@@ -45,7 +45,7 @@ std::string const& device_with_brightness::get_command(std::uint8_t brightness) 
 			command =
 				"{\"5850\":1,\"5851\":" +                       // on
 				std::to_string(brightness_levels[brightness]) + // brightness
-				",\"5706\":\"f5faf6\"}";                        // white lighs
+				",\"5706\":\"f5faf6\"}";                        // white lights
 		}
 	}
 	return command;

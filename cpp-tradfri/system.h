@@ -11,6 +11,7 @@
 #include "coap_connection.h"
 #include "bulb.h"
 #include "plug.h"
+#include "group.h"
 #include <vector>
 #include <functional>
 
@@ -35,15 +36,20 @@ public:
 	std::vector<plug>& plugs() {
 		return m_plugs;
 	}
+	std::vector<group>& groups() {
+		return m_groups;
+	}
 	
 	std::function<void()> toggle_operation(std::string const& device_name);
 	
 private:
 	void load_device(std::string const& id);
+	void load_group(std::string const& id);
 	
-	coap_connection   m_coap;
-	std::vector<bulb> m_bulbs;
-	std::vector<plug> m_plugs;
+	coap_connection    m_coap;
+	std::vector<bulb>  m_bulbs;
+	std::vector<plug>  m_plugs;
+	std::vector<group> m_groups;
 };
 
 }

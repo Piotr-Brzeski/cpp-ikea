@@ -8,7 +8,6 @@
 
 #include "bulb.h"
 #include "exception.h"
-#include <array>
 #include <vector>
 
 using namespace tradfri;
