@@ -12,17 +12,28 @@
 
 #include "configuration.h"
 
-std::uint8_t load() {
+std::vector<std::function<void()>> toggle_operations;
+std::vector<std::function<void()>> increase_operations;
+std::vector<std::function<void()>> decrease_operations;
+
+auto& load() {
 	std::string value;
 	std::cin >> value;
-	return std::stoul(value);
+	if(value.back() == '+') {
+		value.pop_back();
+		return increase_operations.at(std::stoul(value));
+	}
+	if(value.back() == '-') {
+		value.pop_back();
+		return decrease_operations.at(std::stoul(value));
+	}
+	return toggle_operations.at(std::stoul(value));
 }
 
 int main(int argc, const char * argv[]) {
 	try {
 		auto system = tradfri::system(configuration::ip, configuration::identity, configuration::key);
 		system.enumerate_devices();
-		std::vector<std::function<void()>> operations;
 		auto& bulbs = system.bulbs();
 		auto& plugs = system.plugs();
 		auto& gropus = system.groups();
@@ -31,21 +42,26 @@ int main(int argc, const char * argv[]) {
 			for(std::size_t i = 0; i < bulbs.size(); ++i) {
 				auto& bulb = bulbs[i];
 				std::cout << (i < 10 ? " ": "") << i << " : Bulb  [" << static_cast<int>(bulb.brightness()) << "] " << bulb.name() << std::endl;
-				operations.emplace_back(system.toggle_operation(bulb.name()));
+				toggle_operations.emplace_back(system.toggle_operation(bulb.name()));
+				increase_operations.emplace_back(system.increase_operation(bulb.name()));
+				decrease_operations.emplace_back(system.decrease_operation(bulb.name()));
 			}
 			for(std::size_t i = 0; i < plugs.size(); ++i) {
 				auto& plug = plugs[i];
 				std::cout << (i+bulbs.size() < 10 ? " ": "") << (i+bulbs.size()) << " : Plug  [" << static_cast<int>(plug.enabled()) << "] " << plug.name() << std::endl;
-				operations.emplace_back(system.toggle_operation(plug.name()));
+				toggle_operations.emplace_back(system.toggle_operation(plug.name()));
+				increase_operations.emplace_back(system.increase_operation(plug.name()));
+				decrease_operations.emplace_back(system.decrease_operation(plug.name()));
 			}
 			for(std::size_t i = 0; i < gropus.size(); ++i) {
 				auto& group = gropus[i];
 				std::cout << (i+bulbs.size()+plugs.size() < 10 ? " ": "") << (i+bulbs.size()+plugs.size()) << " : Group [" << static_cast<int>(group.brightness()) << "] " << group.name() << std::endl;
-				operations.emplace_back(system.toggle_operation(group.name()));
+				toggle_operations.emplace_back(system.toggle_operation(group.name()));
+				increase_operations.emplace_back(system.increase_operation(group.name()));
+				decrease_operations.emplace_back(system.decrease_operation(group.name()));
 			}
-			std::cout << "\nType [index] to toggle:" << std::endl;
-			auto index = load();
-			operations.at(index)();
+			std::cout << "\nType [index] to toggle, [index]+ to increase, [index]- to decrease:" << std::endl;
+			load()();
 		}
 		return 0;
 	}

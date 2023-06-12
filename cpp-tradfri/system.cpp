@@ -89,6 +89,16 @@ std::function<void()> system::toggle_operation(std::string const& device_name) {
 	return [device](){ std::visit([](auto&& device){ device->toggle(); }, device); };
 }
 
+std::function<void()> system::increase_operation(std::string const& device_name) {
+	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
+	return [device](){ std::visit([](auto&& device){ device->increase(); }, device); };
+}
+
+std::function<void()> system::decrease_operation(std::string const& device_name) {
+	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
+	return [device](){ std::visit([](auto&& device){ device->decrease(); }, device); };
+}
+
 void system::load_device(std::string const& id) {
 	static auto const type_key = std::string("5750");
 	auto device_description = device::load(m_coap, id);
