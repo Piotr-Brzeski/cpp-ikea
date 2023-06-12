@@ -39,6 +39,9 @@ targets:
       - path: json.h
         group: cpp-tradfri
         buildPhase: none
+      - path: logger.h
+        group: cpp-tradfri
+        buildPhase: none
       - path: plug.cpp
         group: cpp-tradfri
       - path: plug.h

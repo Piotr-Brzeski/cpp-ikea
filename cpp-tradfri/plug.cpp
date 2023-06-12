@@ -9,6 +9,7 @@
 #include "plug.h"
 #include "exception.h"
 #include "json.h"
+#include "logger.h"
 
 using namespace tradfri;
 
@@ -21,6 +22,12 @@ std::string const& command(bool enabled) {
 		return on;
 	}
 	return off;
+}
+
+std::string const& state_name(bool state) {
+	static std::string const on = "on";
+	static std::string const off = "off";
+	return state ? on : off;
 }
 
 }
@@ -46,6 +53,7 @@ bool plug::enabled() {
 void plug::set(bool enabled) {
 	auto& state_command = command(enabled);
 	device::set(state_command);
+	log("[" + name() + "] set state: " + state_name(m_enabled) + " -> " + state_name(enabled) + " : " + state_command);
 	m_enabled = enabled;
 }
 

@@ -6,8 +6,9 @@
 //  Copyright © 2023 Brzeski.net. All rights reserved.
 //
 
-#include "bulb.h"
+#include "device_with_brightness.h"
 #include "exception.h"
+#include "logger.h"
 #include <array>
 #include <vector>
 
@@ -15,7 +16,7 @@ using namespace tradfri;
 
 namespace {
 
-constexpr auto brightness_levels = std::array<int, 8>{0, 1, 44, 87, 130, 173, 216, 254};
+constexpr auto brightness_levels = std::array<int, 8>{0, 2, 44, 87, 130, 173, 216, 254};
 constexpr auto max_brightness = brightness_levels.size() - 1;
 
 std::uint8_t brightness(int raw_value) {
@@ -66,6 +67,7 @@ std::uint8_t device_with_brightness::brightness(){
 void device_with_brightness::set(std::uint8_t brightness) {
 	auto& state_command = command(brightness);
 	device::set(state_command);
+	log("[" + name() + "] set brightness: " + std::to_string(m_brightness) + " -> " + std::to_string(brightness) + " : " + state_command);
 	m_brightness = brightness;
 }
 
