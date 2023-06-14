@@ -18,12 +18,14 @@ public:
 	
 	std::uint8_t brightness();
 	
+	void set(bool enabled);
 	void set(std::uint8_t brightness);
 	void toggle();
 	void increase();
 	void decrease();
 	
 	static std::string const& get_command(std::uint8_t brightness);
+	static std::uint8_t max_brightness();
 	
 protected:
 	void update_brightness(json_value const& status);

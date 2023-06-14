@@ -84,6 +84,16 @@ void system::enumerate_devices() {
 	}
 }
 
+std::function<void(bool)> system::set_operation(std::string const& device_name) {
+	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
+	return [device](bool enable){ std::visit([enable](auto&& device){ device->set(enable); }, device); };
+}
+
+std::function<std::uint8_t()> system::brightness_operation(std::string const& device_name) {
+	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
+	return [device](){ return std::visit([](auto&& device){ return device->brightness(); }, device); };
+}
+
 std::function<void()> system::toggle_operation(std::string const& device_name) {
 	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
 	return [device](){ std::visit([](auto&& device){ device->toggle(); }, device); };

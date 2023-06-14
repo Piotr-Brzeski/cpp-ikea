@@ -18,6 +18,7 @@ public:
 	static plug load(std::string const& id, coap_connection& coap, json const& json);
 	
 	bool enabled();
+	std::uint8_t brightness();
 	
 	void set(bool enabled);
 	void toggle();

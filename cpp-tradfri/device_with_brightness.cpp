@@ -17,7 +17,8 @@ using namespace tradfri;
 namespace {
 
 constexpr auto brightness_levels = std::array<int, 8>{0, 2, 44, 87, 130, 173, 216, 254};
-constexpr auto max_brightness = brightness_levels.size() - 1;
+constexpr auto max_brightness_value = static_cast<std::uint8_t>(brightness_levels.size() - 1);
+constexpr auto zero_brightness_value = static_cast<std::uint8_t>(0);
 
 std::uint8_t brightness(int raw_value) {
 	if(raw_value < brightness_levels[1]) return 0;
@@ -52,16 +53,24 @@ std::string const& device_with_brightness::get_command(std::uint8_t brightness) 
 	return command;
 }
 
+std::uint8_t device_with_brightness::max_brightness() {
+	return max_brightness_value;
+}
+
 device_with_brightness::device_with_brightness(std::string&& uri, coap_connection& coap, json const& json)
 	: device(std::move(uri), coap, json)
 {
 }
 
-std::uint8_t device_with_brightness::brightness(){
+std::uint8_t device_with_brightness::brightness() {
 	if(needs_update()) {
 		update();
 	}
 	return m_brightness;
+}
+
+void device_with_brightness::set(bool enabled) {
+	set(enabled ? max_brightness_value : zero_brightness_value);
 }
 
 void device_with_brightness::set(std::uint8_t brightness) {
@@ -72,18 +81,18 @@ void device_with_brightness::set(std::uint8_t brightness) {
 }
 
 void device_with_brightness::toggle() {
-	set(brightness() == 0 ? max_brightness : 0);
+	set(brightness() == 0 ? max_brightness_value : zero_brightness_value);
 }
 
 void device_with_brightness::increase() {
-	if(brightness() < max_brightness) {
-		set(m_brightness + 1);
+	if(brightness() < max_brightness_value) {
+		set(static_cast<std::uint8_t>(m_brightness + 1));
 	}
 }
 
 void device_with_brightness::decrease() {
 	if(brightness() > 0) {
-		set(m_brightness - 1);
+		set(static_cast<std::uint8_t>(m_brightness - 1));
 	}
 }
 
@@ -96,7 +105,7 @@ void device_with_brightness::update_brightness(json_value const& status) {
 		m_brightness = ::brightness(raw_brightness);
 	}
 	else {
-		m_brightness = 0;
+		m_brightness = zero_brightness_value;
 	}
 	//	auto temperature = status["5706"].get_string();
 }

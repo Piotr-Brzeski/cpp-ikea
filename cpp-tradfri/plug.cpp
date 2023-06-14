@@ -7,6 +7,7 @@
 //
 
 #include "plug.h"
+#include "device_with_brightness.h"
 #include "exception.h"
 #include "json.h"
 #include "logger.h"
@@ -48,6 +49,10 @@ bool plug::enabled() {
 		update();
 	}
 	return m_enabled;
+}
+
+std::uint8_t plug::brightness() {
+	return enabled() ? device_with_brightness::max_brightness() : 0;
 }
 
 void plug::set(bool enabled) {

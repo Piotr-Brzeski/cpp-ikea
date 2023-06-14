@@ -40,6 +40,8 @@ public:
 		return m_groups;
 	}
 	
+	std::function<void(bool)> set_operation(std::string const& device_name);
+	std::function<std::uint8_t()> brightness_operation(std::string const& device_name);
 	std::function<void()> toggle_operation(std::string const& device_name);
 	std::function<void()> increase_operation(std::string const& device_name);
 	std::function<void()> decrease_operation(std::string const& device_name);
