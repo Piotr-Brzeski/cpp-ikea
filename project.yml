@@ -22,4 +22,5 @@ settings:
 include:
   - cpp-tradfri/cpp-tradfri.yml
   - cpp-coap/cpp-coap/cpp-coap.yml
+  - cpp-log/cpp-log/cpp-log.yml
   - examples/examples.yml

@@ -4,3 +4,6 @@
 [submodule "cpp-data-format"]
 	path = cpp-data-format
 	url = https://github.com/Piotr-Brzeski/cpp-data-format.git
+[submodule "cpp-log"]
+	path = cpp-log
+	url = https://github.com/Piotr-Brzeski/cpp-log

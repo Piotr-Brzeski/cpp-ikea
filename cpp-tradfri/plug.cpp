@@ -10,7 +10,7 @@
 #include "device_with_brightness.h"
 #include "exception.h"
 #include "json.h"
-#include "logger.h"
+#include <cpp-log/log.h>
 
 using namespace tradfri;
 
@@ -58,7 +58,7 @@ std::uint8_t plug::brightness() {
 void plug::set(bool enabled) {
 	auto& state_command = command(enabled);
 	device::set(state_command);
-	log("[" + name() + "] set state: " + state_name(m_enabled) + " -> " + state_name(enabled) + " : " + state_command);
+	log::log("[" + name() + "] set state: " + state_name(m_enabled) + " -> " + state_name(enabled) + " : " + state_command);
 	m_enabled = enabled;
 }
 

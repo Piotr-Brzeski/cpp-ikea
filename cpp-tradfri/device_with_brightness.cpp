@@ -8,7 +8,7 @@
 
 #include "device_with_brightness.h"
 #include "exception.h"
-#include "logger.h"
+#include <cpp-log/log.h>
 #include <array>
 #include <vector>
 
@@ -76,7 +76,7 @@ void device_with_brightness::set(bool enabled) {
 void device_with_brightness::set(std::uint8_t brightness) {
 	auto& state_command = command(brightness);
 	device::set(state_command);
-	log("[" + name() + "] set brightness: " + std::to_string(m_brightness) + " -> " + std::to_string(brightness) + " : " + state_command);
+	log::log("[" + name() + "] set brightness: " + std::to_string(m_brightness) + " -> " + std::to_string(brightness) + " : " + state_command);
 	m_brightness = brightness;
 }
 
