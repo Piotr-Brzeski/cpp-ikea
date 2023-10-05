@@ -99,6 +99,7 @@ void device_with_brightness::decrease() {
 void device_with_brightness::update_brightness(json_value const& status) {
 	static const auto enabled_key = std::string("5850");
 	static const auto brightness_key = std::string("5851");
+	auto previous_brightness = m_brightness;
 	auto enabled = status[enabled_key].get_int();
 	if(enabled == 1) {
 		auto raw_brightness = status[brightness_key].get_int();
@@ -108,4 +109,5 @@ void device_with_brightness::update_brightness(json_value const& status) {
 		m_brightness = zero_brightness_value;
 	}
 	//	auto temperature = status["5706"].get_string();
+	log::log("[" + name() + "] update brightness: " + std::to_string(previous_brightness) + " -> " + std::to_string(m_brightness));
 }
