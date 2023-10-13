@@ -46,7 +46,3 @@ group group::load(std::string const& id, coap_connection& coap, json const& json
 void group::update(json const& json) {
 	update_brightness(json.get());
 }
-
-void group::update() {
-	update(json(device::load()));
-}

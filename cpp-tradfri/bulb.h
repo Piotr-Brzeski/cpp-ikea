@@ -19,8 +19,7 @@ public:
 	
 private:
 	bulb(std::string const& id, coap_connection& coap, json const& json);
-	void update(json const& json);
-	void update() override;
+	void update(json const& json) override;
 	std::string const& command(std::uint8_t brightness) override;
 };
 

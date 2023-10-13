@@ -29,6 +29,8 @@ protected:
 	static std::string const uri_prefix;
 	device(std::string&& uri, coap_connection& coap, json const& json);
 	bool needs_update() const;
+	void update_state();
+	virtual void update(json const& json) = 0;
 	std::string load();
 	void set(std::string const& state);
 	

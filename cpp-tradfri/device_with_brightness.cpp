@@ -64,7 +64,7 @@ device_with_brightness::device_with_brightness(std::string&& uri, coap_connectio
 
 std::uint8_t device_with_brightness::brightness() {
 	if(needs_update()) {
-		update();
+		update_state();
 	}
 	return m_brightness;
 }
@@ -76,7 +76,7 @@ void device_with_brightness::set(bool enabled) {
 void device_with_brightness::set(std::uint8_t brightness) {
 	auto& state_command = command(brightness);
 	device::set(state_command);
-	log::log("[" + name() + "] set brightness: " + std::to_string(m_brightness) + " -> " + std::to_string(brightness) + " : " + state_command);
+	log::log("[" + name() + "] set brightness: " + std::to_string(m_brightness) + " -> " + std::to_string(brightness));
 	m_brightness = brightness;
 }
 

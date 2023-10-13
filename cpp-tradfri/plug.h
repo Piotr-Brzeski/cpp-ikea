@@ -27,8 +27,7 @@ public:
 	
 private:
 	plug(std::string const& id, coap_connection& coap, json const& json);
-	void update(json const& json);
-	void update();
+	void update(json const& json) override;
 	
 	bool m_enabled;
 };

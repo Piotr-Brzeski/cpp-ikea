@@ -40,7 +40,3 @@ void bulb::update(json const& json) {
 	auto status = json[status_key][0];
 	update_brightness(status);
 }
-
-void bulb::update() {
-	update(json(device::load()));
-}

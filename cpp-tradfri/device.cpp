@@ -7,6 +7,9 @@
 //
 
 #include "device.h"
+#include <cpp-log/log.h>
+#include <chrono>
+#include <thread>
 
 using namespace tradfri;
 
@@ -34,9 +37,20 @@ device::device(std::string&& uri, coap_connection& coap, json const& json)
 }
 
 bool device::needs_update() const {
-	constexpr auto threshold = std::chrono::milliseconds(1000);
+	constexpr auto threshold = std::chrono::milliseconds(500);
 	auto now = std::chrono::steady_clock::now();
 	return (now - m_last_update_time) > threshold;
+}
+
+void device::update_state() {
+	try {
+		update(json(device::load()));
+	}
+	catch(std::exception &e) {
+		log::log("Update device state faied");
+		// Sometimes tradfri gateway returns json without current state.
+		// Ignore for now.
+	}
 }
 
 std::string device::load() {

@@ -29,7 +29,6 @@ public:
 	
 protected:
 	void update_brightness(json_value const& status);
-	virtual void update() = 0;
 	virtual std::string const& command(std::uint8_t brightness) = 0;
 	
 private:
