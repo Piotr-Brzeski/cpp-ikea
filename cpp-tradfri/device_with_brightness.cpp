@@ -76,7 +76,7 @@ void device_with_brightness::set(bool enabled) {
 void device_with_brightness::set(std::uint8_t brightness) {
 	auto& state_command = command(brightness);
 	device::set(state_command);
-	log::log("[" + name() + "] set brightness: " + std::to_string(m_brightness) + " -> " + std::to_string(brightness));
+	logger::log("[" + name() + "] set brightness: " + std::to_string(m_brightness) + " -> " + std::to_string(brightness));
 	m_brightness = brightness;
 }
 
@@ -109,5 +109,5 @@ void device_with_brightness::update_brightness(json_value const& status) {
 		m_brightness = zero_brightness_value;
 	}
 	//	auto temperature = status["5706"].get_string();
-	log::log("[" + name() + "] update brightness: " + std::to_string(previous_brightness) + " -> " + std::to_string(m_brightness));
+	logger::log("[" + name() + "] update brightness: " + std::to_string(previous_brightness) + " -> " + std::to_string(m_brightness));
 }

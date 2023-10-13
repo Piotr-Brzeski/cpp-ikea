@@ -13,6 +13,7 @@ targets:
       HEADER_SEARCH_PATHS:
         - ${SRCROOT}
         - ${SRCROOT}/cpp-data-format
+        - ${SRCROOT}/cpp-log
       LIBRARY_SEARCH_PATHS: /opt/homebrew/lib
       OTHER_LDFLAGS: -lcoap-3-openssl -lssl
       _LINUX_OTHER_LDFLAGS: -lcoap-3-gnutls

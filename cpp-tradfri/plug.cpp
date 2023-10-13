@@ -58,7 +58,7 @@ std::uint8_t plug::brightness() {
 void plug::set(bool enabled) {
 	auto& state_command = command(enabled);
 	device::set(state_command);
-	log::log("[" + name() + "] set plug state: " + state_name(m_enabled) + " -> " + state_name(enabled));
+	logger::log("[" + name() + "] set plug state: " + state_name(m_enabled) + " -> " + state_name(enabled));
 	m_enabled = enabled;
 }
 
@@ -82,6 +82,6 @@ void plug::update(json const& json) {
 	static const auto status_key = std::string("3312");
 	static const auto enabled_key = std::string("5850");
 	auto enabled = json[status_key][0][enabled_key].get_int();
-	log::log("[" + name() + "] update plug state: " + std::to_string(m_enabled) + " -> " + std::to_string(enabled));
+	logger::log("[" + name() + "] update plug state: " + std::to_string(m_enabled) + " -> " + std::to_string(enabled));
 	m_enabled = enabled == 1;
 }

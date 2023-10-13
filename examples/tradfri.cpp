@@ -7,6 +7,7 @@
 //
 
 #include <cpp-tradfri/system.h>
+#include <cpp-log/log.h>
 #include <iostream>
 #include <fstream>
 
@@ -32,6 +33,7 @@ auto& load() {
 
 int main(int argc, const char * argv[]) {
 	try {
+		auto log = logger::start(logger::cout());
 		auto system = tradfri::system(configuration::ip, configuration::identity, configuration::key);
 		system.enumerate_devices();
 		auto& bulbs = system.bulbs();

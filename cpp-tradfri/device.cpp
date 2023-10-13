@@ -47,7 +47,7 @@ void device::update_state() {
 		update(json(device::load()));
 	}
 	catch(std::exception &e) {
-		log::log("Update device state faied");
+		logger::log("Update device state faied");
 		// Sometimes tradfri gateway returns json without current state.
 		// Ignore for now.
 	}
