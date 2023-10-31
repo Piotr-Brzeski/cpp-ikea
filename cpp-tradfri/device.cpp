@@ -43,14 +43,14 @@ bool device::needs_update() const {
 }
 
 void device::update_state() {
-	try {
+//	try {
 		update(json(device::load()));
-	}
-	catch(std::exception &e) {
-		logger::log("Update device state faied");
-		// Sometimes tradfri gateway returns json without current state.
-		// Ignore for now.
-	}
+//	}
+//	catch(std::exception &e) {
+//		logger::log("Update device state failed");
+//		// Sometimes tradfri gateway returns json without current state.
+//		// Ignore for now.
+//	}
 }
 
 std::string device::load() {
