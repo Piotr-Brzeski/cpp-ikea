@@ -3,7 +3,7 @@ targets:
     platform: macOS
     type: tool
     dependencies:
-      - target: cpp-tradfri
+      - target: cpp-ikea
         link: true
       - target: cpp-coap
         link: true

@@ -1,12 +1,12 @@
 //
-//  system.cpp
-//  cpp-tradfri
+//  tradfri.cpp
+//  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-06.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
 //
 
-#include "system.h"
+#include "tradfri.h"
 #include "json.h"
 #include "bulb.h"
 #include "exception.h"
@@ -14,7 +14,7 @@
 #include <variant>
 //#include <iostream>
 
-using namespace tradfri;
+using namespace ikea;
 
 namespace {
 
@@ -59,17 +59,17 @@ std::variant<bulb*, plug*, group*> get_device(std::string const& device_name, De
 
 }
 
-system::system(configuration const& configuration)
+tradfri::tradfri(configuration const& configuration)
 	: m_coap(configuration.ip, configuration.identity, configuration.key)
 {
 }
 
-system::system(std::string const& ip, std::string const& identity, std::string const& key)
+tradfri::tradfri(std::string const& ip, std::string const& identity, std::string const& key)
 	: m_coap(ip, identity, key)
 {
 }
 
-void system::enumerate_devices() {
+void tradfri::enumerate_devices() {
 	static auto const devices_uri = std::string("15001");
 	static auto const groups_uri = std::string("15004");
 	auto list = m_coap.get(devices_uri);
@@ -84,32 +84,32 @@ void system::enumerate_devices() {
 	}
 }
 
-std::function<void(bool)> system::set_operation(std::string const& device_name) {
+std::function<void(bool)> tradfri::set_operation(std::string const& device_name) {
 	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
 	return [device](bool enable){ std::visit([enable](auto&& device){ device->set(enable); }, device); };
 }
 
-std::function<std::uint8_t()> system::brightness_operation(std::string const& device_name) {
+std::function<std::uint8_t()> tradfri::brightness_operation(std::string const& device_name) {
 	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
 	return [device](){ return std::visit([](auto&& device){ return device->brightness(); }, device); };
 }
 
-std::function<void()> system::toggle_operation(std::string const& device_name) {
+std::function<void()> tradfri::toggle_operation(std::string const& device_name) {
 	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
 	return [device](){ std::visit([](auto&& device){ device->toggle(); }, device); };
 }
 
-std::function<void()> system::increase_operation(std::string const& device_name) {
+std::function<void()> tradfri::increase_operation(std::string const& device_name) {
 	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
 	return [device](){ std::visit([](auto&& device){ device->increase(); }, device); };
 }
 
-std::function<void()> system::decrease_operation(std::string const& device_name) {
+std::function<void()> tradfri::decrease_operation(std::string const& device_name) {
 	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
 	return [device](){ std::visit([](auto&& device){ device->decrease(); }, device); };
 }
 
-void system::load_device(std::string const& id) {
+void tradfri::load_device(std::string const& id) {
 	static auto const type_key = std::string("5750");
 	auto device_description = device::load(m_coap, id);
 	auto device_json = json(std::move(device_description));
@@ -127,7 +127,7 @@ void system::load_device(std::string const& id) {
 	}
 }
 
-void system::load_group(std::string const& id) {
+void tradfri::load_group(std::string const& id) {
 	auto group_description = group::load(m_coap, id);
 	auto group_json = json(std::move(group_description));
 	m_groups.push_back(group::load(id, m_coap, group_json));

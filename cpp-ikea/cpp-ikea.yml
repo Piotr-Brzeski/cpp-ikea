@@ -1,5 +1,5 @@
 targets:
-  cpp-tradfri:
+  cpp-ikea:
     platform: macOS
     type: library.static
     settings:
@@ -7,46 +7,45 @@ targets:
         - ${SRCROOT}/cpp-coap
         - ${SRCROOT}/cpp-data-format
         - ${SRCROOT}/cpp-log
-      # SYSTEM_HEADER_SEARCH_PATHS: ${SRCROOT}/rapidjson
     sources:
       - path: bulb.cpp
-        group: cpp-tradfri
+        group: cpp-ikea
       - path: bulb.h
-        group: cpp-tradfri
+        group: cpp-ikea
         buildPhase: none
       - path: coap_connection.cpp
-        group: cpp-tradfri
+        group: cpp-ikea
       - path: coap_connection.h
-        group: cpp-tradfri
+        group: cpp-ikea
         buildPhase: none
       - path: device.cpp
-        group: cpp-tradfri
+        group: cpp-ikea
       - path: device.h
-        group: cpp-tradfri
+        group: cpp-ikea
         buildPhase: none
       - path: device_with_brightness.cpp
-        group: cpp-tradfri
+        group: cpp-ikea
       - path: device_with_brightness.h
-        group: cpp-tradfri
+        group: cpp-ikea
         buildPhase: none
       - path: exception.h
-        group: cpp-tradfri
+        group: cpp-ikea
         buildPhase: none
       - path: group.cpp
-        group: cpp-tradfri
+        group: cpp-ikea
       - path: group.h
-        group: cpp-tradfri
+        group: cpp-ikea
         buildPhase: none
       - path: json.h
-        group: cpp-tradfri
+        group: cpp-ikea
         buildPhase: none
       - path: plug.cpp
-        group: cpp-tradfri
+        group: cpp-ikea
       - path: plug.h
-        group: cpp-tradfri
+        group: cpp-ikea
         buildPhase: none
-      - path: system.cpp
-        group: cpp-tradfri
-      - path: system.h
-        group: cpp-tradfri
+      - path: tradfri.cpp
+        group: cpp-ikea
+      - path: tradfri.h
+        group: cpp-ikea
         buildPhase: none

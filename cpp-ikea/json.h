@@ -1,6 +1,6 @@
 //
 //  json.h
-//  cpp-tradfri
+//  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-07.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
@@ -10,7 +10,7 @@
 
 #include <data-format/json.h>
 
-namespace tradfri {
+namespace ikea {
 
 using json = format::json;
 using json_value = format::value_wrapper;

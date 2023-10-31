@@ -1,6 +1,6 @@
 //
 //  plug.h
-//  cpp-tradfri
+//  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-07.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
@@ -10,7 +10,7 @@
 
 #include "device.h"
 
-namespace tradfri {
+namespace ikea {
 
 class plug: public device {
 public:

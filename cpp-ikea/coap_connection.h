@@ -1,6 +1,6 @@
 //
 //  coap_connection.h
-//  cpp-tradfri
+//  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-06.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
@@ -15,7 +15,7 @@ namespace coap {
 	class session;
 }
 
-namespace tradfri {
+namespace ikea {
 
 class coap_connection {
 public:

@@ -1,4 +1,4 @@
-# cpp-tradfri
+# cpp-ikea
 Manage Ikea Tradfri from C++
 
 ## Build

@@ -1,6 +1,6 @@
 //
 //  coap_connection.cpp
-//  cpp-tradfri
+//  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-06.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
@@ -10,7 +10,7 @@
 #include <cpp-coap/client.h>
 #include <memory>
 
-using namespace tradfri;
+using namespace ikea;
 
 coap_connection::coap_connection(std::string const& ip, std::string const& identity, std::string const& key) {
 	auto coap_client = std::make_unique<coap::client>();

@@ -1,4 +1,4 @@
-name: cpp-tradfri
+name: cpp-ikea
 
 options:
   usesTabs: true
@@ -20,7 +20,7 @@ settings:
     GCC_TREAT_WARNINGS_AS_ERRORS: true
 
 include:
-  - cpp-tradfri/cpp-tradfri.yml
+  - cpp-ikea/cpp-ikea.yml
   - cpp-coap/cpp-coap/cpp-coap.yml
   - cpp-log/cpp-log/cpp-log.yml
   - examples/examples.yml

@@ -1,6 +1,6 @@
 //
-//  system.h
-//  cpp-tradfri
+//  tradfri.h
+//  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-06.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
@@ -15,9 +15,9 @@
 #include <vector>
 #include <functional>
 
-namespace tradfri {
+namespace ikea {
 
-class system {
+class tradfri {
 public:
 	struct configuration {
 		std::string ip;
@@ -25,8 +25,8 @@ public:
 		std::string key;
 	};
 	
-	system(configuration const& configuration);
-	system(std::string const& ip, std::string const& identity, std::string const& key);
+	tradfri(configuration const& configuration);
+	tradfri(std::string const& ip, std::string const& identity, std::string const& key);
 	
 	void enumerate_devices();
 	

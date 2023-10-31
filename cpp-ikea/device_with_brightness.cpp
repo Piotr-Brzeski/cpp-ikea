@@ -1,6 +1,6 @@
 //
 //  device_with_brightness.cpp
-//  cpp-tradfri
+//  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-06-10.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
@@ -12,7 +12,7 @@
 #include <array>
 #include <vector>
 
-using namespace tradfri;
+using namespace ikea;
 
 namespace {
 

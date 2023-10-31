@@ -1,6 +1,6 @@
 //
 //  group.cpp
-//  cpp-tradfri
+//  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-06-10.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
@@ -10,7 +10,7 @@
 #include "exception.h"
 #include <vector>
 
-using namespace tradfri;
+using namespace ikea;
 
 namespace {
 	auto constexpr group_uri_prefix = "15004/";

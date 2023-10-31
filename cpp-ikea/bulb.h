@@ -1,6 +1,6 @@
 //
 //  bulb.h
-//  cpp-tradfri
+//  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-06.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
@@ -10,7 +10,7 @@
 
 #include "device_with_brightness.h"
 
-namespace tradfri {
+namespace ikea {
 
 class bulb: public device_with_brightness {
 public:

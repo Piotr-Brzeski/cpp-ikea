@@ -6,7 +6,7 @@
 //  Copyright © 2023 Brzeski.net. All rights reserved.
 //
 
-#include <cpp-tradfri/system.h>
+#include <cpp-ikea/tradfri.h>
 #include <cpp-log/log.h>
 #include <iostream>
 #include <fstream>
@@ -34,7 +34,7 @@ auto& load() {
 int main(int argc, const char * argv[]) {
 	try {
 		auto log = logger::start(logger::cout());
-		auto system = tradfri::system(configuration::ip, configuration::identity, configuration::key);
+		auto system = ikea::tradfri(configuration::ip, configuration::identity, configuration::key);
 		system.enumerate_devices();
 		auto& bulbs = system.bulbs();
 		auto& plugs = system.plugs();

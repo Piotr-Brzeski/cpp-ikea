@@ -1,6 +1,6 @@
 //
 //  bulb.cpp
-//  cpp-tradfri
+//  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-06.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
@@ -10,7 +10,7 @@
 #include "exception.h"
 #include <vector>
 
-using namespace tradfri;
+using namespace ikea;
 
 std::string const& bulb::command(std::uint8_t brightness) {
 	static auto commands = std::vector<std::string>(8);

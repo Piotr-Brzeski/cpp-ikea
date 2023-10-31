@@ -1,6 +1,6 @@
 //
 //  plug.cpp
-//  cpp-tradfri
+//  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-07.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
@@ -12,7 +12,7 @@
 #include "json.h"
 #include <cpp-log/log.h>
 
-using namespace tradfri;
+using namespace ikea;
 
 namespace {
 

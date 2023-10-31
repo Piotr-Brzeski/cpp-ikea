@@ -1,6 +1,6 @@
 //
 //  device.cpp
-//  cpp-tradfri
+//  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-06.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
@@ -11,7 +11,7 @@
 #include <chrono>
 #include <thread>
 
-using namespace tradfri;
+using namespace ikea;
 
 namespace {
 
