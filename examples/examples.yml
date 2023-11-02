@@ -7,6 +7,8 @@ targets:
         link: true
       - target: cpp-coap
         link: true
+      - target: data-format
+        link: true
       - target: cpp-log
         link: true
     settings:
@@ -27,6 +29,8 @@ targets:
       - target: cpp-ikea
         link: true
       - target: cpp-coap
+        link: true
+      - target: data-format
         link: true
       - target: cpp-log
         link: true

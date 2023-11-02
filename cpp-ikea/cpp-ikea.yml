@@ -13,6 +13,11 @@ targets:
       - path: coap_connection.h
         group: cpp-ikea
         buildPhase: none
+      - path: device.cpp
+        group: cpp-ikea
+      - path: device.h
+        group: cpp-ikea
+        buildPhase: none
       - path: dirigera.cpp
         group: cpp-ikea
       - path: dirigera.h

@@ -22,5 +22,6 @@ settings:
 include:
   - cpp-ikea/cpp-ikea.yml
   - cpp-coap/cpp-coap/cpp-coap.yml
+  - cpp-data-format/data-format/data-format.yml
   - cpp-log/cpp-log/cpp-log.yml
   - examples/examples.yml
