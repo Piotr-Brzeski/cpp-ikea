@@ -12,7 +12,29 @@
 
 using namespace ikea;
 
-std::string const& tradfri_bulb::command(std::uint8_t brightness) {
+tradfri_bulb::tradfri_bulb(std::string const& id, coap_connection& coap, json const& json)
+	: tradfri_device_with_brightness(tradfri_device::uri_prefix + id, coap, json)
+{
+	update_state(json);
+}
+
+void tradfri_bulb::update_state(json const& json) {
+	static const auto status_key = std::string("3311");
+	auto status_json = json[status_key][0];
+	update_brightness(status_json);
+}
+
+void tradfri_bulb::get_state() {
+	auto state_json = json(m_coap.get(m_uri));
+	update_state(state_json);
+}
+
+void tradfri_bulb::send_state() {
+	auto& state = get_command(m_brightness_to_send);
+	m_coap.put(m_uri, state);
+}
+
+std::string const& tradfri_bulb::get_command(std::uint8_t brightness) {
 	static auto commands = std::vector<std::string>(8);
 	if(brightness >= commands.size()) {
 		throw exception("Invalid brightness value");
@@ -22,21 +44,4 @@ std::string const& tradfri_bulb::command(std::uint8_t brightness) {
 		command = "{\"3311\":[" + tradfri_device_with_brightness::get_command(brightness) + "]}";
 	}
 	return command;
-}
-
-tradfri_bulb::tradfri_bulb(std::string const& id, coap_connection& coap, json const& json)
-	: tradfri_device_with_brightness(tradfri_device::uri_prefix + id, coap, json)
-{
-}
-
-tradfri_bulb tradfri_bulb::load(std::string const& id, coap_connection& coap, json const& json) {
-	auto new_bulb = tradfri_bulb(id, coap, json);
-	new_bulb.update(json);
-	return new_bulb;
-}
-
-void tradfri_bulb::update(json const& json) {
-	static const auto status_key = std::string("3311");
-	auto status = json[status_key][0];
-	update_brightness(status);
 }

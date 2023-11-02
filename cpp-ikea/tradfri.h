@@ -36,9 +36,6 @@ public:
 	std::vector<tradfri_outlet>& outlets() {
 		return m_outlets;
 	}
-	std::vector<tradfri_group>& groups() {
-		return m_groups;
-	}
 	
 	std::function<void(bool)> set_operation(std::string const& device_name);
 	std::function<std::uint8_t()> brightness_operation(std::string const& device_name);
@@ -48,12 +45,10 @@ public:
 	
 private:
 	void load_device(std::string const& id);
-	void load_group(std::string const& id);
 	
 	coap_connection             m_coap;
 	std::vector<tradfri_bulb>   m_bulbs;
 	std::vector<tradfri_outlet> m_outlets;
-	std::vector<tradfri_group>  m_groups;
 };
 
 }

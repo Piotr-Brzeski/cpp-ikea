@@ -15,12 +15,14 @@ namespace ikea {
 class tradfri_bulb: public tradfri_device_with_brightness {
 public:
 	static constexpr int system_id = 2;
-	static tradfri_bulb load(std::string const& id, coap_connection& coap, json const& json);
-	
-private:
 	tradfri_bulb(std::string const& id, coap_connection& coap, json const& json);
-	void update(json const& json) override;
-	std::string const& command(std::uint8_t brightness) override;
+
+private:
+	void update_state(json const& json);
+	void get_state() override;
+	void send_state() override;
+	
+	std::string const& get_command(std::uint8_t brightness);
 };
 
 }

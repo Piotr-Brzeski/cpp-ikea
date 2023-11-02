@@ -20,6 +20,9 @@ targets:
       OTHER_LDFLAGS: -lcoap-3-openssl -lssl -lcurl
       _LINUX_OTHER_LDFLAGS: -lcoap-3-gnutls -lcurl
     sources:
+      - path: system_tester.h
+        group: examples
+        buildPhase: none
       - path: tradfri.cpp
         group: examples
   dirigera:
@@ -45,3 +48,6 @@ targets:
     sources:
       - path: dirigera.cpp
         group: examples
+      - path: system_tester.h
+        group: examples
+        buildPhase: none

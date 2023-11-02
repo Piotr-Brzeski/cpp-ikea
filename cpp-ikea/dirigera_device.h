@@ -11,7 +11,6 @@
 #include "device.h"
 #include "http_connection.h"
 #include "json.h"
-#include <chrono>
 
 namespace ikea {
 
@@ -22,13 +21,9 @@ public:
 	
 protected:
 	dirigera_device(std::string const& devices_uri, http_connection& connection, json_value const& json);
-	void update_state();
-	virtual void update(json_value const& json) = 0;
-	std::string load();
-	void set(std::string const& state);
 	
-private:
-	http_connection&                      m_connection;
+	http_connection& m_connection;
+	std::string      m_uri;
 };
 
 }

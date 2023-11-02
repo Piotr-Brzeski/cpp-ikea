@@ -18,9 +18,24 @@ targets:
       - path: device.h
         group: cpp-ikea
         buildPhase: none
+      - path: device_with_brightness.cpp
+        group: cpp-ikea
+      - path: device_with_brightness.h
+        group: cpp-ikea
+        buildPhase: none
+      - path: device_without_brightness.cpp
+        group: cpp-ikea
+      - path: device_without_brightness.h
+        group: cpp-ikea
+        buildPhase: none
       - path: dirigera.cpp
         group: cpp-ikea
       - path: dirigera.h
+        group: cpp-ikea
+        buildPhase: none
+      - path: dirigera_bulb.cpp
+        group: cpp-ikea
+      - path: dirigera_bulb.h
         group: cpp-ikea
         buildPhase: none
       - path: dirigera_device.cpp

@@ -15,25 +15,21 @@ namespace ikea {
 
 class device {
 public:
-	device(device const&) = delete;
-	device(device&&) = default;
-	
 	std::string const& name() const {
 		return m_name;
 	}
 	
 protected:
-	device(std::string uri, std::string name);
-	bool needs_update() const;
-	void updated();
+	device();
+	void update();
+	void send();
 	
-	std::string const& uri() const {
-		return m_uri;
-	}
-	
+	std::string m_name;
 private:
-	std::string                           m_uri;
-	std::string                           m_name;
+	bool needs_update() const;
+	virtual void get_state() = 0;
+	virtual void send_state() = 0;
+	
 	std::chrono::steady_clock::time_point m_last_update_time;
 };
 

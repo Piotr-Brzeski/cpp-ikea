@@ -16,33 +16,26 @@ namespace {
 	auto constexpr group_uri_prefix = "15004/";
 }
 
-std::string const& tradfri_group::command(std::uint8_t brightness) {
-	static auto commands = std::vector<std::string>(8);
-	if(brightness >= commands.size()) {
-		throw exception("Invalid brightness value");
-	}
-	auto& command = commands[brightness];
-	if(command.empty()) {
-		command = tradfri_device_with_brightness::get_command(brightness);
-	}
-	return command;
+std::string tradfri_group::load(coap_connection& coap, std::string const& id) {
+	return coap.get(group_uri_prefix + id);
 }
 
 tradfri_group::tradfri_group(std::string const& id, coap_connection& coap, json const& json)
 	: tradfri_device_with_brightness(group_uri_prefix + id, coap, json)
 {
+	update_state(json);
 }
 
-std::string tradfri_group::load(coap_connection& coap, std::string const& id) {
-	return coap.get(group_uri_prefix + id);
-}
-
-tradfri_group tradfri_group::load(std::string const& id, coap_connection& coap, json const& json) {
-	auto new_group = tradfri_group(id, coap, json);
-	new_group.update(json);
-	return new_group;
-}
-
-void tradfri_group::update(json const& json) {
+void tradfri_group::update_state(json const& json) {
 	update_brightness(json.get());
+}
+
+void tradfri_group::get_state() {
+	auto status_json = json(m_coap.get(m_uri));
+	update_state(status_json);
+}
+
+void tradfri_group::send_state() {
+	auto& state = get_command(m_brightness_to_send);
+	m_coap.put(m_uri, state);
 }

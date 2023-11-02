@@ -29,17 +29,17 @@ public:
 			increase_operations.emplace_back(system.increase_operation(outlet.name()));
 			decrease_operations.emplace_back(system.decrease_operation(outlet.name()));
 		}
-		for(auto& group : system.groups()) {
-			toggle_operations.emplace_back(system.toggle_operation(group.name()));
-			increase_operations.emplace_back(system.increase_operation(group.name()));
-			decrease_operations.emplace_back(system.decrease_operation(group.name()));
-		}
+//		for(auto& group : system.groups()) {
+//			toggle_operations.emplace_back(system.toggle_operation(group.name()));
+//			increase_operations.emplace_back(system.increase_operation(group.name()));
+//			decrease_operations.emplace_back(system.decrease_operation(group.name()));
+//		}
 	}
 	
 	void start() {
 		auto& bulbs = system.bulbs();
 		auto& outlets = system.outlets();
-		auto& gropus = system.groups();
+//		auto& gropus = system.groups();
 		bool run = true;
 		while(run) {
 			for(std::size_t i = 0; i < bulbs.size(); ++i) {
@@ -50,10 +50,10 @@ public:
 				auto& outlet = outlets[i];
 				std::cout << (i+bulbs.size() < 10 ? " ": "") << (i+bulbs.size()) << " : Plug  [" << static_cast<int>(outlet.enabled()) << "] " << outlet.name() << std::endl;
 			}
-			for(std::size_t i = 0; i < gropus.size(); ++i) {
-				auto& group = gropus[i];
-				std::cout << (i+bulbs.size()+outlets.size() < 10 ? " ": "") << (i+bulbs.size()+outlets.size()) << " : Group [" << static_cast<int>(group.brightness()) << "] " << group.name() << std::endl;
-			}
+//			for(std::size_t i = 0; i < gropus.size(); ++i) {
+//				auto& group = gropus[i];
+//				std::cout << (i+bulbs.size()+outlets.size() < 10 ? " ": "") << (i+bulbs.size()+outlets.size()) << " : Group [" << static_cast<int>(group.brightness()) << "] " << group.name() << std::endl;
+//			}
 			std::cout << "\nType [index] to toggle, [index]+ to increase, [index]- to decrease:" << std::endl;
 			load()();
 		}

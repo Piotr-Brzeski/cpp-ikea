@@ -15,7 +15,7 @@
 
 namespace ikea {
 
-class tradfri_device: public device {
+class tradfri_device: public virtual device {
 public:
 	tradfri_device(tradfri_device const&) = delete;
 	tradfri_device(tradfri_device&&) = default;
@@ -25,13 +25,9 @@ public:
 protected:
 	static std::string const uri_prefix;
 	tradfri_device(std::string&& uri, coap_connection& coap, json const& json);
-	void update_state();
-	virtual void update(json const& json) = 0;
-	std::string load();
-	void set(std::string const& state);
 	
-private:
 	coap_connection& m_coap;
+	std::string      m_uri;
 };
 
 }

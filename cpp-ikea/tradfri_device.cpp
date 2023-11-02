@@ -14,42 +14,21 @@ using namespace ikea;
 namespace {
 
 std::string load_name(json const& json) {
-	static const auto name_key = std::string("9001");
+	static const auto name_key = "9001";
 	return json[name_key].get_string();
 }
 
 }
 
+std::string const tradfri_device::uri_prefix = "15001/";
+
 std::string tradfri_device::load(coap_connection& coap, std::string const& id) {
 	return coap.get(uri_prefix + id);
 }
 
-std::string const tradfri_device::uri_prefix = "15001/";
-
 tradfri_device::tradfri_device(std::string&& uri, coap_connection& coap, json const& json)
-	: device(std::move(uri), load_name(json))
-	, m_coap(coap)
+	: m_coap(coap)
+	, m_uri(std::move(uri))
 {
-}
-
-void tradfri_device::update_state() {
-//	try {
-		update(json(tradfri_device::load()));
-//	}
-//	catch(std::exception &e) {
-//		logger::log("Update device state failed");
-//		// Sometimes tradfri gateway returns json without current state.
-//		// Ignore for now.
-//	}
-}
-
-std::string tradfri_device::load() {
-	auto response = m_coap.get(uri());
-	updated();
-	return response;
-}
-
-void tradfri_device::set(std::string const& state) {
-	m_coap.put(uri(), state);
-	updated();
+	m_name = load_name(json);
 }

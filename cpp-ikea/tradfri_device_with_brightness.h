@@ -9,30 +9,19 @@
 #pragma once
 
 #include "tradfri_device.h"
+#include "device_with_brightness.h"
 
 namespace ikea {
 
-class tradfri_device_with_brightness: public tradfri_device {
+class tradfri_device_with_brightness: public tradfri_device, public device_with_brightness {
 public:
 	tradfri_device_with_brightness(std::string&& uri, coap_connection& coap, json const& json);
 	
-	std::uint8_t brightness();
-	
-	void set(bool enabled);
-	void set(std::uint8_t brightness);
-	void toggle();
-	void increase();
-	void decrease();
-	
-	static std::string const& get_command(std::uint8_t brightness);
-	static std::uint8_t max_brightness();
-	
 protected:
-	void update_brightness(json_value const& status);
-	virtual std::string const& command(std::uint8_t brightness) = 0;
+	static std::string const& get_command(std::uint8_t brightness);
 	
-private:
-	std::uint8_t m_brightness = 0;
+	void update_brightness(json_value const& status);
+//	virtual std::string const& command(std::uint8_t brightness) = 0;
 };
 
 }
