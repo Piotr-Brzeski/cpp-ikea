@@ -1,5 +1,5 @@
 //
-//  bulb.h
+//  tradfri_bulb.h
 //  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-06.
@@ -8,17 +8,17 @@
 
 #pragma once
 
-#include "device_with_brightness.h"
+#include "tradfri_device_with_brightness.h"
 
 namespace ikea {
 
-class bulb: public device_with_brightness {
+class tradfri_bulb: public tradfri_device_with_brightness {
 public:
 	static constexpr int system_id = 2;
-	static bulb load(std::string const& id, coap_connection& coap, json const& json);
+	static tradfri_bulb load(std::string const& id, coap_connection& coap, json const& json);
 	
 private:
-	bulb(std::string const& id, coap_connection& coap, json const& json);
+	tradfri_bulb(std::string const& id, coap_connection& coap, json const& json);
 	void update(json const& json) override;
 	std::string const& command(std::uint8_t brightness) override;
 };

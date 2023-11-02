@@ -8,7 +8,6 @@
 
 #include "tradfri.h"
 #include "json.h"
-#include "bulb.h"
 #include "exception.h"
 #include <vector>
 #include <variant>
@@ -43,7 +42,7 @@ std::vector<std::string> parse_ids(std::string const& list) {
 }
 
 template<typename Devices, typename... Args>
-std::variant<bulb*, plug*, group*> get_device(std::string const& device_name, Devices& devices, Args&... more_devices) {
+std::variant<tradfri_bulb*, tradfri_outlet*, tradfri_group*> get_device(std::string const& device_name, Devices& devices, Args&... more_devices) {
 	for(auto& device : devices) {
 		if(device.name() == device_name) {
 			return &device;
@@ -85,41 +84,41 @@ void tradfri::enumerate_devices() {
 }
 
 std::function<void(bool)> tradfri::set_operation(std::string const& device_name) {
-	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
+	auto device = get_device(device_name, m_bulbs, m_outlets, m_groups);
 	return [device](bool enable){ std::visit([enable](auto&& device){ device->set(enable); }, device); };
 }
 
 std::function<std::uint8_t()> tradfri::brightness_operation(std::string const& device_name) {
-	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
+	auto device = get_device(device_name, m_bulbs, m_outlets, m_groups);
 	return [device](){ return std::visit([](auto&& device){ return device->brightness(); }, device); };
 }
 
 std::function<void()> tradfri::toggle_operation(std::string const& device_name) {
-	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
+	auto device = get_device(device_name, m_bulbs, m_outlets, m_groups);
 	return [device](){ std::visit([](auto&& device){ device->toggle(); }, device); };
 }
 
 std::function<void()> tradfri::increase_operation(std::string const& device_name) {
-	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
+	auto device = get_device(device_name, m_bulbs, m_outlets, m_groups);
 	return [device](){ std::visit([](auto&& device){ device->increase(); }, device); };
 }
 
 std::function<void()> tradfri::decrease_operation(std::string const& device_name) {
-	auto device = get_device(device_name, m_bulbs, m_plugs, m_groups);
+	auto device = get_device(device_name, m_bulbs, m_outlets, m_groups);
 	return [device](){ std::visit([](auto&& device){ device->decrease(); }, device); };
 }
 
 void tradfri::load_device(std::string const& id) {
 	static auto const type_key = std::string("5750");
-	auto device_description = device::load(m_coap, id);
+	auto device_description = tradfri_device::load(m_coap, id);
 	auto device_json = json(std::move(device_description));
 	auto type = device_json[type_key].get_int();
 	switch(type) {
-		case bulb::system_id:
-			m_bulbs.push_back(bulb::load(id, m_coap, device_json));
+		case tradfri_bulb::system_id:
+			m_bulbs.push_back(tradfri_bulb::load(id, m_coap, device_json));
 			break;
-		case plug::system_id:
-			m_plugs.push_back(plug::load(id, m_coap, device_json));
+		case tradfri_outlet::system_id:
+			m_outlets.push_back(tradfri_outlet::load(id, m_coap, device_json));
 			break;
 		default:
 //			std::cout << id << ", type=" << type << ", " << device_json["9001"].get_string() << std::endl;
@@ -128,7 +127,7 @@ void tradfri::load_device(std::string const& id) {
 }
 
 void tradfri::load_group(std::string const& id) {
-	auto group_description = group::load(m_coap, id);
+	auto group_description = tradfri_group::load(m_coap, id);
 	auto group_json = json(std::move(group_description));
-	m_groups.push_back(group::load(id, m_coap, group_json));
+	m_groups.push_back(tradfri_group::load(id, m_coap, group_json));
 }

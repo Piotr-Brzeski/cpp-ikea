@@ -9,9 +9,9 @@
 #pragma once
 
 #include "coap_connection.h"
-#include "bulb.h"
-#include "plug.h"
-#include "group.h"
+#include "tradfri_bulb.h"
+#include "tradfri_outlet.h"
+#include "tradfri_group.h"
 #include <vector>
 #include <functional>
 
@@ -30,13 +30,13 @@ public:
 	
 	void enumerate_devices();
 	
-	std::vector<bulb>& bulbs() {
+	std::vector<tradfri_bulb>& bulbs() {
 		return m_bulbs;
 	}
-	std::vector<plug>& plugs() {
-		return m_plugs;
+	std::vector<tradfri_outlet>& outlets() {
+		return m_outlets;
 	}
-	std::vector<group>& groups() {
+	std::vector<tradfri_group>& groups() {
 		return m_groups;
 	}
 	
@@ -50,10 +50,10 @@ private:
 	void load_device(std::string const& id);
 	void load_group(std::string const& id);
 	
-	coap_connection    m_coap;
-	std::vector<bulb>  m_bulbs;
-	std::vector<plug>  m_plugs;
-	std::vector<group> m_groups;
+	coap_connection             m_coap;
+	std::vector<tradfri_bulb>   m_bulbs;
+	std::vector<tradfri_outlet> m_outlets;
+	std::vector<tradfri_group>  m_groups;
 };
 
 }

@@ -1,5 +1,5 @@
 //
-//  device.h
+//  tradfri_device.h
 //  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-06.
@@ -14,10 +14,10 @@
 
 namespace ikea {
 
-class device {
+class tradfri_device {
 public:
-	device(device const&) = delete;
-	device(device&&) = default;
+	tradfri_device(tradfri_device const&) = delete;
+	tradfri_device(tradfri_device&&) = default;
 	
 	static std::string load(coap_connection& coap, std::string const& id);
 	
@@ -27,7 +27,7 @@ public:
 	
 protected:
 	static std::string const uri_prefix;
-	device(std::string&& uri, coap_connection& coap, json const& json);
+	tradfri_device(std::string&& uri, coap_connection& coap, json const& json);
 	bool needs_update() const;
 	void update_state();
 	virtual void update(json const& json) = 0;

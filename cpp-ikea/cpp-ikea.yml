@@ -8,44 +8,64 @@ targets:
         - ${SRCROOT}/cpp-data-format
         - ${SRCROOT}/cpp-log
     sources:
-      - path: bulb.cpp
-        group: cpp-ikea
-      - path: bulb.h
-        group: cpp-ikea
-        buildPhase: none
       - path: coap_connection.cpp
         group: cpp-ikea
       - path: coap_connection.h
         group: cpp-ikea
         buildPhase: none
-      - path: device.cpp
+      - path: dirigera.cpp
         group: cpp-ikea
-      - path: device.h
+      - path: dirigera.h
         group: cpp-ikea
         buildPhase: none
-      - path: device_with_brightness.cpp
+      - path: dirigera_device.cpp
         group: cpp-ikea
-      - path: device_with_brightness.h
+      - path: dirigera_device.h
+        group: cpp-ikea
+        buildPhase: none
+      - path: dirigera_outlet.cpp
+        group: cpp-ikea
+      - path: dirigera_outlet.h
         group: cpp-ikea
         buildPhase: none
       - path: exception.h
         group: cpp-ikea
         buildPhase: none
-      - path: group.cpp
+      - path: http_connection.cpp
         group: cpp-ikea
-      - path: group.h
+      - path: http_connection.h
         group: cpp-ikea
         buildPhase: none
       - path: json.h
         group: cpp-ikea
         buildPhase: none
-      - path: plug.cpp
-        group: cpp-ikea
-      - path: plug.h
-        group: cpp-ikea
-        buildPhase: none
       - path: tradfri.cpp
         group: cpp-ikea
       - path: tradfri.h
+        group: cpp-ikea
+        buildPhase: none
+      - path: tradfri_bulb.cpp
+        group: cpp-ikea
+      - path: tradfri_bulb.h
+        group: cpp-ikea
+        buildPhase: none
+      - path: tradfri_device.cpp
+        group: cpp-ikea
+      - path: tradfri_device.h
+        group: cpp-ikea
+        buildPhase: none
+      - path: tradfri_device_with_brightness.cpp
+        group: cpp-ikea
+      - path: tradfri_device_with_brightness.h
+        group: cpp-ikea
+        buildPhase: none
+      - path: tradfri_group.cpp
+        group: cpp-ikea
+      - path: tradfri_group.h
+        group: cpp-ikea
+        buildPhase: none
+      - path: tradfri_outlet.cpp
+        group: cpp-ikea
+      - path: tradfri_outlet.h
         group: cpp-ikea
         buildPhase: none

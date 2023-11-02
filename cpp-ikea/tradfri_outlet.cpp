@@ -1,13 +1,13 @@
 //
-//  plug.cpp
+//  tradfri_outlet.cpp
 //  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-01-07.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
 //
 
-#include "plug.h"
-#include "device_with_brightness.h"
+#include "tradfri_outlet.h"
+#include "tradfri_device_with_brightness.h"
 #include "exception.h"
 #include "json.h"
 #include <cpp-log/log.h>
@@ -33,52 +33,52 @@ std::string const& state_name(bool state) {
 
 }
 
-plug::plug(std::string const& id, coap_connection& coap, json const& json)
-	: device(device::uri_prefix + id, coap, json)
+tradfri_outlet::tradfri_outlet(std::string const& id, coap_connection& coap, json const& json)
+	: tradfri_device(tradfri_device::uri_prefix + id, coap, json)
 {
 }
 
-plug plug::load(std::string const& id, coap_connection& coap, json const& json) {
-	auto new_plug = plug(id, coap, json);
+tradfri_outlet tradfri_outlet::load(std::string const& id, coap_connection& coap, json const& json) {
+	auto new_plug = tradfri_outlet(id, coap, json);
 	new_plug.update(json);
 	return new_plug;
 }
 
-bool plug::enabled() {
+bool tradfri_outlet::enabled() {
 	if(needs_update()) {
 		update_state();
 	}
 	return m_enabled;
 }
 
-std::uint8_t plug::brightness() {
-	return enabled() ? device_with_brightness::max_brightness() : 0;
+std::uint8_t tradfri_outlet::brightness() {
+	return enabled() ? tradfri_device_with_brightness::max_brightness() : 0;
 }
 
-void plug::set(bool enabled) {
+void tradfri_outlet::set(bool enabled) {
 	auto& state_command = command(enabled);
-	device::set(state_command);
+	tradfri_device::set(state_command);
 	logger::log("[" + name() + "] set plug state: " + state_name(m_enabled) + " -> " + state_name(enabled));
 	m_enabled = enabled;
 }
 
-void plug::toggle() {
+void tradfri_outlet::toggle() {
 	set(!enabled());
 }
 
-void plug::increase() {
+void tradfri_outlet::increase() {
 	if(!enabled()) {
 		set(true);
 	}
 }
 
-void plug::decrease() {
+void tradfri_outlet::decrease() {
 	if(enabled()) {
 		set(false);
 	}
 }
 
-void plug::update(json const& json) {
+void tradfri_outlet::update(json const& json) {
 	static const auto status_key = std::string("3312");
 	static const auto enabled_key = std::string("5850");
 	auto enabled = json[status_key][0][enabled_key].get_int();

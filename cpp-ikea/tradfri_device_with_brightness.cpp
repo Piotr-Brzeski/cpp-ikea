@@ -1,12 +1,12 @@
 //
-//  device_with_brightness.cpp
+//  tradfri_device_with_brightness.cpp
 //  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-06-10.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
 //
 
-#include "device_with_brightness.h"
+#include "tradfri_device_with_brightness.h"
 #include "exception.h"
 #include <cpp-log/log.h>
 #include <array>
@@ -33,7 +33,7 @@ std::uint8_t brightness(int raw_value) {
 
 }
 
-std::string const& device_with_brightness::get_command(std::uint8_t brightness) {
+std::string const& tradfri_device_with_brightness::get_command(std::uint8_t brightness) {
 	static auto commands = std::vector<std::string>(8);
 	if(brightness >= commands.size()) {
 		throw exception("Invalid brightness value");
@@ -53,50 +53,50 @@ std::string const& device_with_brightness::get_command(std::uint8_t brightness) 
 	return command;
 }
 
-std::uint8_t device_with_brightness::max_brightness() {
+std::uint8_t tradfri_device_with_brightness::max_brightness() {
 	return max_brightness_value;
 }
 
-device_with_brightness::device_with_brightness(std::string&& uri, coap_connection& coap, json const& json)
-	: device(std::move(uri), coap, json)
+tradfri_device_with_brightness::tradfri_device_with_brightness(std::string&& uri, coap_connection& coap, json const& json)
+	: tradfri_device(std::move(uri), coap, json)
 {
 }
 
-std::uint8_t device_with_brightness::brightness() {
+std::uint8_t tradfri_device_with_brightness::brightness() {
 	if(needs_update()) {
 		update_state();
 	}
 	return m_brightness;
 }
 
-void device_with_brightness::set(bool enabled) {
+void tradfri_device_with_brightness::set(bool enabled) {
 	set(enabled ? max_brightness_value : zero_brightness_value);
 }
 
-void device_with_brightness::set(std::uint8_t brightness) {
+void tradfri_device_with_brightness::set(std::uint8_t brightness) {
 	auto& state_command = command(brightness);
-	device::set(state_command);
+	tradfri_device::set(state_command);
 	logger::log("[" + name() + "] set brightness: " + std::to_string(m_brightness) + " -> " + std::to_string(brightness));
 	m_brightness = brightness;
 }
 
-void device_with_brightness::toggle() {
+void tradfri_device_with_brightness::toggle() {
 	set(brightness() == 0 ? max_brightness_value : zero_brightness_value);
 }
 
-void device_with_brightness::increase() {
+void tradfri_device_with_brightness::increase() {
 	if(brightness() < max_brightness_value) {
 		set(static_cast<std::uint8_t>(m_brightness + 1));
 	}
 }
 
-void device_with_brightness::decrease() {
+void tradfri_device_with_brightness::decrease() {
 	if(brightness() > 0) {
 		set(static_cast<std::uint8_t>(m_brightness - 1));
 	}
 }
 
-void device_with_brightness::update_brightness(json_value const& status) {
+void tradfri_device_with_brightness::update_brightness(json_value const& status) {
 	static const auto enabled_key = std::string("5850");
 	static const auto brightness_key = std::string("5851");
 	auto previous_brightness = m_brightness;

@@ -1,5 +1,5 @@
 //
-//  device_with_brightness.h
+//  tradfri_device_with_brightness.h
 //  cpp-ikea
 //
 //  Created by Piotr Brzeski on 2023-06-10.
@@ -8,13 +8,13 @@
 
 #pragma once
 
-#include "device.h"
+#include "tradfri_device.h"
 
 namespace ikea {
 
-class device_with_brightness: public device {
+class tradfri_device_with_brightness: public tradfri_device {
 public:
-	device_with_brightness(std::string&& uri, coap_connection& coap, json const& json);
+	tradfri_device_with_brightness(std::string&& uri, coap_connection& coap, json const& json);
 	
 	std::uint8_t brightness();
 	
