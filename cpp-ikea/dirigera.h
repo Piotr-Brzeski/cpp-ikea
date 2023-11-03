@@ -10,10 +10,8 @@
 
 #include "http_connection.h"
 #include "dirigera_outlet.h"
-#include "tradfri_bulb.h"
-#include "tradfri_group.h"
+#include "dirigera_bulb.h"
 #include <vector>
-#include <functional>
 
 namespace ikea {
 
@@ -29,21 +27,17 @@ public:
 	
 	void enumerate_devices();
 	
-	std::vector<tradfri_bulb>& bulbs() {
-		static auto bulbs = std::vector<tradfri_bulb>();
-		return bulbs;
+	std::vector<dirigera_bulb>& bulbs() {
+		return m_bulbs;
 	}
 	std::vector<dirigera_outlet>& outlets() {
 		return m_outlets;
 	}
-	std::vector<tradfri_group>& groups() {
-		static auto groups = std::vector<tradfri_group>();
-		return groups;
-	}
-
+	
 private:
-	http_connection              m_connection;
 	std::string const            m_uri;
+	http_connection              m_connection;
+	std::vector<dirigera_bulb>   m_bulbs;
 	std::vector<dirigera_outlet> m_outlets;
 };
 

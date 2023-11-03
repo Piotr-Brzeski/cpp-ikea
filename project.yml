@@ -18,6 +18,8 @@ settings:
     USE_HEADERMAP: false
     GCC_WARN_PEDANTIC: true
     GCC_TREAT_WARNINGS_AS_ERRORS: true
+    DEAD_CODE_STRIPPING: true
+    ENABLE_USER_SCRIPT_SANDBOXING: true
 
 include:
   - cpp-ikea/cpp-ikea.yml

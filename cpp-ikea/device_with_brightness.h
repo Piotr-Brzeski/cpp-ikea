@@ -16,9 +16,11 @@ namespace ikea {
 class device_with_brightness: public virtual device {
 public:
 	static constexpr std::uint8_t zero_brightness = 0;
+	static constexpr std::uint8_t min_brightness = 1;
 	static constexpr std::uint8_t max_brightness = 7;
 	
 	std::uint8_t brightness();
+	bool enabled();
 	void set(bool enabled);
 	void set(std::uint8_t brightness);
 	void toggle();

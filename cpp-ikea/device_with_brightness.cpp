@@ -16,6 +16,10 @@ std::uint8_t device_with_brightness::brightness() {
 	return m_brightness;
 }
 
+bool device_with_brightness::enabled() {
+	return brightness() > 0;
+}
+
 void device_with_brightness::set(bool enabled) {
 	set(enabled ? max_brightness : zero_brightness);
 }
@@ -28,17 +32,17 @@ void device_with_brightness::set(std::uint8_t brightness) {
 }
 
 void device_with_brightness::toggle() {
-	set(m_brightness == 0 ? max_brightness : zero_brightness);
+	set(brightness() == 0 ? max_brightness : zero_brightness);
 }
 
 void device_with_brightness::increase() {
-	if(m_brightness < max_brightness) {
+	if(brightness() < max_brightness) {
 		set(static_cast<std::uint8_t>(m_brightness + 1));
 	}
 }
 
 void device_with_brightness::decrease() {
-	if(m_brightness > 0) {
+	if(brightness() > 0) {
 		set(static_cast<std::uint8_t>(m_brightness - 1));
 	}
 }

@@ -7,26 +7,16 @@
 //
 
 #include "system_tester.h"
+#include <cpp-ikea/system.h>
 #include <cpp-ikea/dirigera.h>
 #include <cpp-log/log.h>
 #include <iostream>
-
 #include "configuration.h"
-
-void list_devices() {
-	auto client = ikea::http_connection();
-	client.add_header(std::string("Authorization: Bearer ") + dirigera_configuration::access_token);
-	client.get(std::string("https://") + dirigera_configuration::ip + ":8443/v1/devices/");
-	auto response = client.response();
-	std::cout << response << std::endl;
-}
-
 
 int main() {
 	try {
-		//list_devices();
-//		auto log = logger::start(logger::cout());
-		auto system = ikea::dirigera(dirigera_configuration::ip, dirigera_configuration::access_token);
+		auto log = logger::start(logger::cout());
+		auto system = ikea::system<ikea::dirigera>(dirigera_configuration::ip, dirigera_configuration::access_token);
 		auto test = tester(system);
 		test.start();
 		return 0;

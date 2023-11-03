@@ -14,7 +14,7 @@
 
 namespace ikea {
 
-class dirigera_device: public device {
+class dirigera_device: public virtual device {
 public:
 	dirigera_device(dirigera_device const&) = delete;
 	dirigera_device(dirigera_device&&) = default;

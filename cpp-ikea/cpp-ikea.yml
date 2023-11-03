@@ -59,6 +59,9 @@ targets:
       - path: json.h
         group: cpp-ikea
         buildPhase: none
+      - path: system.h
+        group: cpp-ikea
+        buildPhase: none
       - path: tradfri.cpp
         group: cpp-ikea
       - path: tradfri.h

@@ -34,21 +34,20 @@ dirigera_outlet::dirigera_outlet(std::string const& devices_uri, http_connection
 }
 
 void dirigera_outlet::update_state(json_value const& json) {
-	//	static const auto attributes_key = std::string("attributes");
-	//	static const auto ison_key = std::string("isOn");
-	auto enabled = json["attributes"]["isOn"].get_bool();
+	static const auto attributes_key = std::string("attributes");
+	static const auto ison_key = std::string("isOn");
+	auto enabled = json[attributes_key][ison_key].get_bool();
 	internal_update(enabled);
 }
 
 void dirigera_outlet::get_state() {
-//	static const auto attributes_key = std::string("attributes");
-//	static const auto ison_key = std::string("isOn");
-	auto response = m_connection.get_response(m_uri);
+	auto response = m_connection.get(m_uri);
 	auto state_json = json(std::move(response));
 	update_state(state_json.get());
 }
 
 void dirigera_outlet::send_state() {
 	auto& state = command(m_enabled_to_send);
-	m_connection.send_patch(m_uri, state);
+	m_connection.set_patch_url(m_uri);
+	m_connection.patch(state);
 }

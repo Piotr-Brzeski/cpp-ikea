@@ -57,5 +57,5 @@ void device_without_brightness::decrease() {
 void device_without_brightness::internal_update(bool enabled) {
 	auto previous_state = enabled;
 	m_enabled = enabled;
-	logger::log("[" + name() + "] update enabled state: " +state_name(previous_state) + " -> " + state_name(m_enabled));
+	logger::log("[" + name() + "] update enabled state: " + state_name(previous_state) + " -> " + state_name(m_enabled));
 }
