@@ -14,37 +14,55 @@
 #include <functional>
 #include <variant>
 #include <string>
-
+#include <vector>
 
 namespace ikea {
 
-template<class system_t>
-class system: public system_t {
+struct no_system {
+	using configuration = int;
+	struct device: device_without_brightness {
+		void get_state() override {}
+		void send_state() override {}
+	};
+	no_system(configuration const&) {}
+	void enumerate_devices() {}
+	auto& bulbs() { return devices; }
+	auto& outlets() { return devices; }
+	std::vector<device> devices;
+};
+
+template<class system1_t, class system2_t = no_system>
+class system: public system1_t, public system2_t {
 public:
-	template<class... config>
-	system(config&... configuration)
-		: system_t(configuration...)
+	system(system1_t::configuration const& configuration1, system2_t::configuration const& configuration2 = {})
+		: system1_t(configuration1)
+		, system2_t(configuration2)
 	{
 	}
 	
+	void enumerate_devices() {
+		system1_t::enumerate_devices();
+		system2_t::enumerate_devices();
+	}
+	
 	std::function<void(bool)> set_operation(std::string const& device_name) {
-		auto device = get_device(device_name, system_t::bulbs(), system_t::outlets());
+		auto device = get_device(device_name, system1_t::bulbs(), system1_t::outlets(), system2_t::bulbs(), system2_t::outlets());
 		return [device](bool enable){ std::visit([enable](auto&& device){ device->set(enable); }, device); };
 	}
 	std::function<std::uint8_t()> brightness_operation(std::string const& device_name) {
-		auto device = get_device(device_name, system_t::bulbs(), system_t::outlets());
+		auto device = get_device(device_name, system1_t::bulbs(), system1_t::outlets(), system2_t::bulbs(), system2_t::outlets());
 		return [device](){ return std::visit([](auto&& device){ return device->brightness(); }, device); };
 	}
 	std::function<void()> toggle_operation(std::string const& device_name) {
-		auto device = get_device(device_name, system_t::bulbs(), system_t::outlets());
+		auto device = get_device(device_name, system1_t::bulbs(), system1_t::outlets(), system2_t::bulbs(), system2_t::outlets());
 		return [device](){ std::visit([](auto&& device){ device->toggle(); }, device); };
 	}
 	std::function<void()> increase_operation(std::string const& device_name) {
-		auto device = get_device(device_name, system_t::bulbs(), system_t::outlets());
+		auto device = get_device(device_name, system1_t::bulbs(), system1_t::outlets(), system2_t::bulbs(), system2_t::outlets());
 		return [device](){ std::visit([](auto&& device){ device->increase(); }, device); };
 	}
 	std::function<void()> decrease_operation(std::string const& device_name) {
-		auto device = get_device(device_name, system_t::bulbs(), system_t::outlets());
+		auto device = get_device(device_name, system1_t::bulbs(), system1_t::outlets(), system2_t::bulbs(), system2_t::outlets());
 		return [device](){ std::visit([](auto&& device){ device->decrease(); }, device); };
 	}
 	

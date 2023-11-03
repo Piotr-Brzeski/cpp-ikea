@@ -7,7 +7,7 @@
 //
 
 #include "dirigera.h"
-#include <iostream>
+//#include <iostream>
 
 using namespace ikea;
 
@@ -24,7 +24,7 @@ dirigera::dirigera(std::string const& ip, std::string const& access_token)
 
 void dirigera::enumerate_devices() {
 	auto response = m_connection.get(m_uri);
-	std::cout << response << std::endl;
+//	std::cout << response << std::endl;
 	auto devices_json = json(std::move(response));
 	auto devices = devices_json.get();
 	for(std::size_t i = 0; i < devices.size(); ++i) {

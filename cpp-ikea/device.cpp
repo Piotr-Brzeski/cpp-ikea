@@ -28,7 +28,7 @@ void device::update() {
 }
 
 bool device::needs_update() const {
-	constexpr auto threshold = std::chrono::milliseconds(500);
+	constexpr auto threshold = std::chrono::milliseconds(5000);
 	auto now = std::chrono::steady_clock::now();
 	return (now - m_last_update_time) > threshold;
 }
