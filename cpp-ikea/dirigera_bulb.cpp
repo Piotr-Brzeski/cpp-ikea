@@ -56,9 +56,18 @@ std::string const& command(std::uint8_t brightness) {
 std::string const dirigera_bulb::device_type = "light";
 
 dirigera_bulb::dirigera_bulb(std::string const& devices_uri, http_connection& connection, json_value const& json)
-	: dirigera_device(devices_uri, connection, json)
+	: device(get_name(json))
+	, dirigera_device(devices_uri, connection, json)
 {
 	update_state(json);
+}
+
+dirigera_bulb::dirigera_bulb(dirigera_bulb&& bulb)
+	: device(std::move(bulb))
+	, dirigera_device(std::move(bulb))
+	, device_with_brightness(std::move(bulb))
+	, m_raw_brighness(bulb.m_raw_brighness.load())
+{
 }
 
 void dirigera_bulb::update_state(json_value const& json) {
@@ -66,10 +75,14 @@ void dirigera_bulb::update_state(json_value const& json) {
 	static const auto ison_key = std::string("isOn");
 	static const auto level_key = std::string("lightLevel");
 	auto attributes = json[attributes_key];
-	auto enabled = attributes[ison_key].get_bool();
+	auto raw_brighness_value = attributes.get(level_key);
+	if(raw_brighness_value) {
+		m_raw_brighness = raw_brighness_value->get_int();
+	}
+	auto enabled_value = attributes.get(ison_key);
+	auto enabled = enabled_value ? enabled_value->get_bool() : true;
 	if(enabled) {
-		auto raw_brighness = attributes[level_key].get_int();
-		auto brightness = brightness_from_raw(raw_brighness);
+		auto brightness = brightness_from_raw(m_raw_brighness);
 		internal_update(brightness);
 	}
 	else {
@@ -86,20 +99,23 @@ void dirigera_bulb::get_state() {
 void dirigera_bulb::send_state() {
 	m_connection.set_patch_url(m_uri);
 	auto enable = m_brightness_to_send > device_with_brightness::zero_brightness;
-//	auto change_state = (enable != enabled());
+	auto change_state = (enable != enabled());
+	if(change_state) {
+		m_connection.patch(command(enable));
+	}
 	if(enable) {
-		m_connection.patch(command(true));
+//		m_connection.patch(command(true));
 		// TODO: Setting attributes immediately after enabling a light does not work
 		// TODO: Schedule when a bulb is actually enebled
 //		std::this_thread::sleep_for(std::chrono::milliseconds(10));
-		static auto const temperature = std::string("[{\"attributes\": {\"colorTemperature\": 4000}}]");
-		m_connection.patch(temperature);
+//		static auto const temperature = std::string("[{\"attributes\": {\"colorTemperature\": 4000}}]");
+//		m_connection.patch(temperature);
 //		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 		m_connection.patch(command(m_brightness_to_send));
 	}
 	else {
 //		m_connection.patch(command(device_with_brightness::min_brightness));
 //		std::this_thread::sleep_for(std::chrono::milliseconds(300));
-		m_connection.patch(command(false));
+//		m_connection.patch(command(false));
 	}
 }

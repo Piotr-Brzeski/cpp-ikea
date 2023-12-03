@@ -8,13 +8,11 @@
 
 #pragma once
 
-#include <string>
-
-struct curl_slist;
+#include "curl_connection.h"
 
 namespace ikea {
 
-class http_connection {
+class http_connection : public curl_connection {
 public:
 	http_connection(std::string const& access_token);
 	~http_connection();

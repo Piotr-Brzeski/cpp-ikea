@@ -28,11 +28,15 @@ public:
 	
 	void enumerate_devices();
 	
-	std::vector<tradfri_bulb>& bulbs() {
-		return m_bulbs;
+	auto bulbs() {
+		auto v = std::vector<device_with_brightness*>();
+		std::ranges::for_each(m_bulbs, [&v](auto& x){ v.push_back(&x); });
+		return v;
 	}
-	std::vector<tradfri_outlet>& outlets() {
-		return m_outlets;
+	auto outlets() {
+		auto v = std::vector<device_without_brightness*>();
+		std::ranges::for_each(m_outlets, [&v](auto& x){ v.push_back(&x); });
+		return v;
 	}
 	
 private:

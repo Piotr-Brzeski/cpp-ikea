@@ -20,14 +20,14 @@ public:
 	{
 		system.enumerate_devices();
 		for(auto& bulb : system.bulbs()) {
-			toggle_operations.emplace_back(system.toggle_operation(bulb.name()));
-			increase_operations.emplace_back(system.increase_operation(bulb.name()));
-			decrease_operations.emplace_back(system.decrease_operation(bulb.name()));
+			toggle_operations.emplace_back(system.toggle_operation(bulb->name()));
+			increase_operations.emplace_back(system.increase_operation(bulb->name()));
+			decrease_operations.emplace_back(system.decrease_operation(bulb->name()));
 		}
 		for(auto& outlet : system.outlets()) {
-			toggle_operations.emplace_back(system.toggle_operation(outlet.name()));
-			increase_operations.emplace_back(system.increase_operation(outlet.name()));
-			decrease_operations.emplace_back(system.decrease_operation(outlet.name()));
+			toggle_operations.emplace_back(system.toggle_operation(outlet->name()));
+			increase_operations.emplace_back(system.increase_operation(outlet->name()));
+			decrease_operations.emplace_back(system.decrease_operation(outlet->name()));
 		}
 //		for(auto& group : system.groups()) {
 //			toggle_operations.emplace_back(system.toggle_operation(group.name()));
@@ -37,18 +37,18 @@ public:
 	}
 	
 	void start() {
-		auto& bulbs = system.bulbs();
-		auto& outlets = system.outlets();
+		auto bulbs = system.bulbs();
+		auto outlets = system.outlets();
 //		auto& gropus = system.groups();
 		bool run = true;
 		while(run) {
 			for(std::size_t i = 0; i < bulbs.size(); ++i) {
 				auto& bulb = bulbs[i];
-				std::cout << (i < 10 ? " ": "") << i << " : Bulb  [" << static_cast<int>(bulb.brightness()) << "] " << bulb.name() << std::endl;
+				std::cout << (i < 10 ? " ": "") << i << " : Bulb  [" << static_cast<int>(bulb->brightness()) << "] " << bulb->name() << std::endl;
 			}
 			for(std::size_t i = 0; i < outlets.size(); ++i) {
 				auto& outlet = outlets[i];
-				std::cout << (i+bulbs.size() < 10 ? " ": "") << (i+bulbs.size()) << " : Plug  [" << static_cast<int>(outlet.enabled()) << "] " << outlet.name() << std::endl;
+				std::cout << (i+bulbs.size() < 10 ? " ": "") << (i+bulbs.size()) << " : Plug  [" << static_cast<int>(outlet->enabled()) << "] " << outlet->name() << std::endl;
 			}
 //			for(std::size_t i = 0; i < gropus.size(); ++i) {
 //				auto& group = gropus[i];

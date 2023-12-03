@@ -71,10 +71,10 @@ void tradfri::load_device(std::string const& id) {
 	auto type = device_json[type_key].get_int();
 	switch(type) {
 		case tradfri_bulb::system_id:
-			m_bulbs.push_back(tradfri_bulb(id, m_coap, device_json));
+			m_bulbs.emplace_back(id, m_coap, device_json);
 			break;
 		case tradfri_outlet::system_id:
-			m_outlets.push_back(tradfri_outlet(id, m_coap, device_json));
+			m_outlets.emplace_back(id, m_coap, device_json);
 			break;
 		default:
 //			std::cout << id << ", type=" << type << ", " << device_json["9001"].get_string() << std::endl;

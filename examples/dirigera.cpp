@@ -16,7 +16,7 @@
 int main() {
 	try {
 		auto log = logger::start(logger::cout());
-		auto system = ikea::system<ikea::dirigera>(dirigera_configuration::ip, dirigera_configuration::access_token);
+		auto system = ikea::system<ikea::dirigera>({dirigera_configuration::ip, dirigera_configuration::access_token});
 		auto test = tester(system);
 		test.start();
 		return 0;

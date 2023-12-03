@@ -19,11 +19,24 @@ public:
 	dirigera_device(dirigera_device const&) = delete;
 	dirigera_device(dirigera_device&&) = default;
 	
+	std::string const& id() const {
+		return m_id;
+	}
+	
+	virtual void update_state(json_value const& json) = 0;
+	
 protected:
 	dirigera_device(std::string const& devices_uri, http_connection& connection, json_value const& json);
+	static std::string get_name(json_value const& json);
 	
-	http_connection& m_connection;
-	std::string      m_uri;
+	http_connection&  m_connection;
+	std::string const m_uri;
+	
+private:
+	bool needs_update() const override;
+	
+	std::string const m_id;
+	
 };
 
 }

@@ -22,6 +22,12 @@ std::string const& state_name(bool state) {
 
 }
 
+device_without_brightness::device_without_brightness(device_without_brightness&& dev)
+	: m_enabled_to_send(dev.m_enabled_to_send)
+	, m_enabled(dev.m_enabled.load())
+{
+}
+
 bool device_without_brightness::enabled() {
 	update();
 	return m_enabled;
@@ -55,7 +61,7 @@ void device_without_brightness::decrease() {
 }
 
 void device_without_brightness::internal_update(bool enabled) {
-	auto previous_state = enabled;
+	bool previous_state = m_enabled;
 	m_enabled = enabled;
 	logger::log("[" + name() + "] update enabled state: " + state_name(previous_state) + " -> " + state_name(m_enabled));
 }

@@ -24,6 +24,8 @@ settings:
 include:
   - cpp-ikea/cpp-ikea.yml
   - cpp-coap/cpp-coap/cpp-coap.yml
+  - cpp-network/cpp-network/cpp-network.yml
   - cpp-data-format/data-format/data-format.yml
   - cpp-log/cpp-log/cpp-log.yml
+  - curl-ws/curl-ws.yml
   - examples/examples.yml

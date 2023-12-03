@@ -10,6 +10,7 @@
 
 #include "device.h"
 #include <cstdint>
+#include <atomic>
 
 namespace ikea {
 
@@ -18,6 +19,9 @@ public:
 	static constexpr std::uint8_t zero_brightness = 0;
 	static constexpr std::uint8_t min_brightness = 1;
 	static constexpr std::uint8_t max_brightness = 7;
+	
+	device_with_brightness() = default;
+	device_with_brightness(device_with_brightness&&);
 	
 	std::uint8_t brightness();
 	bool enabled();
@@ -32,7 +36,7 @@ protected:
 	std::uint8_t m_brightness_to_send = 0;
 	
 private:
-	std::uint8_t m_brightness = 0;
+	std::atomic<std::uint8_t> m_brightness = 0;
 };
 
 }

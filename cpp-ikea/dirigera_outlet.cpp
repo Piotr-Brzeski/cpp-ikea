@@ -28,7 +28,8 @@ std::string const& command(bool enabled) {
 std::string const dirigera_outlet::device_type = "outlet";
 
 dirigera_outlet::dirigera_outlet(std::string const& devices_uri, http_connection& connection, json_value const& json)
-	: dirigera_device(devices_uri, connection, json)
+	: device(get_name(json))
+	, dirigera_device(devices_uri, connection, json)
 {
 	update_state(json);
 }

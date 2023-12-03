@@ -2,15 +2,23 @@ targets:
   cpp-ikea:
     platform: macOS
     type: library.static
+    templates:
+      - include-curl-ws
     settings:
       HEADER_SEARCH_PATHS:
         - ${SRCROOT}/cpp-coap
         - ${SRCROOT}/cpp-data-format
+        - ${SRCROOT}/cpp-network
         - ${SRCROOT}/cpp-log
     sources:
       - path: coap_connection.cpp
         group: cpp-ikea
       - path: coap_connection.h
+        group: cpp-ikea
+        buildPhase: none
+      - path: curl_connection.cpp
+        group: cpp-ikea
+      - path: curl_connection.h
         group: cpp-ikea
         buildPhase: none
       - path: device.cpp
@@ -90,5 +98,10 @@ targets:
       - path: tradfri_outlet.cpp
         group: cpp-ikea
       - path: tradfri_outlet.h
+        group: cpp-ikea
+        buildPhase: none
+      - path: ws_connection.cpp
+        group: cpp-ikea
+      - path: ws_connection.h
         group: cpp-ikea
         buildPhase: none

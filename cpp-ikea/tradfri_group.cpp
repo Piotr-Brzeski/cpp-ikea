@@ -21,7 +21,8 @@ std::string tradfri_group::load(coap_connection& coap, std::string const& id) {
 }
 
 tradfri_group::tradfri_group(std::string const& id, coap_connection& coap, json const& json)
-	: tradfri_device_with_brightness(group_uri_prefix + id, coap, json)
+	: device(load_name(json))
+	, tradfri_device_with_brightness(group_uri_prefix + id, coap, json)
 {
 	update_state(json);
 }

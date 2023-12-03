@@ -16,9 +16,9 @@
 int main(int argc, const char * argv[]) {
 	try {
 //		auto log = logger::start(logger::cout());
-		auto system = ikea::system<ikea::tradfri>(tradfri_configuration::ip,
-		                                          tradfri_configuration::identity,
-		                                          tradfri_configuration::key);
+		auto system = ikea::system<ikea::tradfri>({tradfri_configuration::ip,
+		                                           tradfri_configuration::identity,
+		                                           tradfri_configuration::key});
 		auto test = tester(system);
 		test.start();
 		return 0;

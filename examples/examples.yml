@@ -2,10 +2,14 @@ targets:
   tradfri:
     platform: macOS
     type: tool
+    templates:
+      - link-curl-ws
     dependencies:
       - target: cpp-ikea
         link: true
       - target: cpp-coap
+        link: true
+      - target: cpp-network
         link: true
       - target: data-format
         link: true
@@ -14,10 +18,12 @@ targets:
     settings:
       HEADER_SEARCH_PATHS:
         - ${SRCROOT}
+        - ${SRCROOT}/cpp-network
         - ${SRCROOT}/cpp-data-format
         - ${SRCROOT}/cpp-log
-      LIBRARY_SEARCH_PATHS: /opt/homebrew/lib
-      OTHER_LDFLAGS: -lcoap-3-openssl -lssl -lcurl
+      LIBRARY_SEARCH_PATHS:
+        - /opt/homebrew/lib
+      OTHER_LDFLAGS: -lcoap-3-openssl
       _LINUX_OTHER_LDFLAGS: -lcoap-3-gnutls -lcurl
     sources:
       - path: system_tester.h
@@ -28,10 +34,14 @@ targets:
   dirigera:
     platform: macOS
     type: tool
+    templates:
+      - link-curl-ws
     dependencies:
       - target: cpp-ikea
         link: true
       - target: cpp-coap
+        link: true
+      - target: cpp-network
         link: true
       - target: data-format
         link: true
@@ -40,11 +50,16 @@ targets:
     settings:
       HEADER_SEARCH_PATHS:
         - ${SRCROOT}
+        - ${SRCROOT}/cpp-network
         - ${SRCROOT}/cpp-data-format
         - ${SRCROOT}/cpp-log
-      LIBRARY_SEARCH_PATHS: /opt/homebrew/lib
-      OTHER_LDFLAGS: -lcoap-3-openssl -lssl -lcurl
-      _LINUX_OTHER_LDFLAGS: -lcoap-3-gnutls -lcurl
+      LIBRARY_SEARCH_PATHS:
+        - /opt/homebrew/lib
+      OTHER_LDFLAGS:
+        - -lcoap-3-openssl
+      _LINUX_OTHER_LDFLAGS:
+        - -lcoap-3-gnutls
+        - -lcurl
     sources:
       - path: dirigera.cpp
         group: examples

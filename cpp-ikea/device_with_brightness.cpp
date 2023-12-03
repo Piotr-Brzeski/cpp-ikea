@@ -11,6 +11,12 @@
 
 using namespace ikea;
 
+device_with_brightness::device_with_brightness(device_with_brightness&& dev)
+	: m_brightness_to_send(dev.m_brightness_to_send)
+	, m_brightness(dev.m_brightness.load())
+{
+}
+
 std::uint8_t device_with_brightness::brightness() {
 	update();
 	return m_brightness;
@@ -48,7 +54,7 @@ void device_with_brightness::decrease() {
 }
 
 void device_with_brightness::internal_update(std::uint8_t brightness) {
-	auto previous_brightness = m_brightness;
+	std::uint8_t previous_brightness = m_brightness;
 	m_brightness = brightness;
 	logger::log("[" + name() + "] update brightness: " + std::to_string(previous_brightness) + " -> " + std::to_string(m_brightness));
 

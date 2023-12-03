@@ -18,11 +18,15 @@ public:
 	static std::string const device_type;
 	
 	dirigera_bulb(std::string const& devices_uri, http_connection& connection, json_value const& json);
+	dirigera_bulb(dirigera_bulb&& bulb);
+	
+	void update_state(json_value const& json) override;
 	
 private:
-	void update_state(json_value const& json);
 	void get_state() override;
 	void send_state() override;
+	
+	std::atomic<int> m_raw_brighness = 0;
 };
 
 }

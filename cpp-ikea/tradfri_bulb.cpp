@@ -13,7 +13,8 @@
 using namespace ikea;
 
 tradfri_bulb::tradfri_bulb(std::string const& id, coap_connection& coap, json const& json)
-	: tradfri_device_with_brightness(tradfri_device::uri_prefix + id, coap, json)
+	: device(load_name(json))
+	, tradfri_device_with_brightness(tradfri_device::uri_prefix + id, coap, json)
 {
 	update_state(json);
 }

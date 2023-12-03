@@ -24,7 +24,8 @@ std::string const& command(bool enabled) {
 }
 
 tradfri_outlet::tradfri_outlet(std::string const& id, coap_connection& coap, json const& json)
-	: tradfri_device(tradfri_device::uri_prefix + id, coap, json)
+	: device(load_name(json))
+	, tradfri_device(tradfri_device::uri_prefix + id, coap, json)
 {
 	update_state(json);
 }

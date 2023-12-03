@@ -26,6 +26,8 @@ protected:
 	static std::string const uri_prefix;
 	tradfri_device(std::string&& uri, coap_connection& coap, json const& json);
 	
+	static std::string load_name(json const& json);
+	
 	coap_connection& m_coap;
 	std::string      m_uri;
 };
