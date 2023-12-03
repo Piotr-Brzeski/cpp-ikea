@@ -17,7 +17,7 @@ class dirigera_outlet: public dirigera_device, public device_without_brightness 
 public:
 	static std::string const device_type;
 	
-	dirigera_outlet(std::string const& devices_uri, http_connection& connection, json_value const& json);
+	dirigera_outlet(std::string const& devices_uri, http_get& get_connection, json_value const& json);
 	
 	void update_state(json_value const& json) override;
 	

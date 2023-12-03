@@ -55,7 +55,7 @@ private:
 	std::vector<dirigera_outlet>            m_outlets;
 	std::map<std::string, dirigera_device*> m_devices;
 	std::string const                       m_uri;
-	http_connection                         m_connection;
+	http_get                                m_get_connection;
 	ws_connection                           m_ws;
 };
 

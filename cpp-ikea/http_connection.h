@@ -9,29 +9,48 @@
 #pragma once
 
 #include "curl_connection.h"
+#include <future>
 
 namespace ikea {
 
-class http_connection : public curl_connection {
+class http_get : public curl_connection {
 public:
-	http_connection(std::string const& access_token);
-	~http_connection();
+	http_get(std::string const& access_token);
+	~http_get();
 	
-	http_connection(http_connection const&) = delete;
-	http_connection(http_connection&&) = delete;
+	http_get(http_get const&) = delete;
+	http_get(http_get&&) = delete;
 	
 	std::string const& get(std::string const& url);
-	void set_patch_url(std::string const& url);
-	void patch(std::string const& data);
+	
+	std::string const& access_token() const {
+		return m_access_token;
+	}
 	
 private:
-	void*         m_get = nullptr;
-	void*         m_patch = nullptr;
-	::curl_slist* m_get_headers = nullptr;
-	::curl_slist* m_patch_headers = nullptr;
-	std::string   m_response;
-	std::string   m_get_url;
-	std::string   m_patch_url;
+	void*             m_get = nullptr;
+	::curl_slist*     m_get_headers = nullptr;
+	std::string       m_response;
+	std::string       m_get_url;
+	std::string const m_access_token;
+
+};
+
+class http_patch : public curl_connection {
+public:
+	http_patch(std::string const& url, std::string const& access_token);
+	http_patch(http_patch&&);
+	~http_patch();
+	
+	http_patch(http_patch const&) = delete;
+	
+	void send(std::vector<std::string> patches);
+	
+private:
+	void*             m_patch = nullptr;
+	::curl_slist*     m_patch_headers = nullptr;
+	std::string       m_patch_url;
+	std::future<void> m_result;
 };
 
 }

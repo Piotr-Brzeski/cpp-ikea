@@ -27,9 +27,9 @@ std::string const& command(bool enabled) {
 
 std::string const dirigera_outlet::device_type = "outlet";
 
-dirigera_outlet::dirigera_outlet(std::string const& devices_uri, http_connection& connection, json_value const& json)
+dirigera_outlet::dirigera_outlet(std::string const& devices_uri, http_get& get_connection, json_value const& json)
 	: device(get_name(json))
-	, dirigera_device(devices_uri, connection, json)
+	, dirigera_device(devices_uri, get_connection, json)
 {
 	update_state(json);
 }
@@ -42,13 +42,12 @@ void dirigera_outlet::update_state(json_value const& json) {
 }
 
 void dirigera_outlet::get_state() {
-	auto response = m_connection.get(m_uri);
+	auto response = m_get_connection.get(m_uri);
 	auto state_json = json(std::move(response));
 	update_state(state_json.get());
 }
 
 void dirigera_outlet::send_state() {
 	auto& state = command(m_enabled_to_send);
-	m_connection.set_patch_url(m_uri);
-	m_connection.patch(state);
+	m_patch_connection.send({state});
 }

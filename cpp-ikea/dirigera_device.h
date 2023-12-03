@@ -26,11 +26,12 @@ public:
 	virtual void update_state(json_value const& json) = 0;
 	
 protected:
-	dirigera_device(std::string const& devices_uri, http_connection& connection, json_value const& json);
+	dirigera_device(std::string const& devices_uri, http_get& get_connection, json_value const& json);
 	static std::string get_name(json_value const& json);
 	
-	http_connection&  m_connection;
 	std::string const m_uri;
+	http_get&         m_get_connection;
+	http_patch        m_patch_connection;
 	
 private:
 	bool needs_update() const override;
