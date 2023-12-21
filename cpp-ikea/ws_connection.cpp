@@ -37,32 +37,33 @@ void ws_connection::start(std::function<void(std::string const&)> message_callba
 	if(m_ws_state.valid()) {
 		throw exception("Websocket connection is already started");
 	}
-	auto status = send_request(m_ws);
-	auto status_str = std::to_string(status);
-	logger::log("Websocket connect " + m_url + " : [" + status_str + "]");
-	if(status != 101) {
-		throw exception("Websocket connect failed with status " + status_str);
-	}
-	m_descriptor = get_socket();
+	connect();
 	m_ws_state = std::async(std::launch::async, [message_callback, this](){
 		auto message = std::string();
 		auto buffer = std::array<char, 1024>();
 		while(true) {
-			std::size_t size = 0;
-			::curl_ws_frame const* meta = nullptr;
-			auto status = ::curl_ws_recv(m_ws, buffer.data(), buffer.size(), &size, &meta);
-			while(status == CURLE_AGAIN) {
-				if(!m_select.wait(m_descriptor).contains(m_descriptor)) {
-					assert(false);
-					return;
+			try {
+				std::size_t size = 0;
+				::curl_ws_frame const* meta = nullptr;
+				auto status = ::curl_ws_recv(m_ws, buffer.data(), buffer.size(), &size, &meta);
+				while(status == CURLE_AGAIN) {
+					if(!m_select.wait(m_descriptor).contains(m_descriptor)) {
+						assert(false);
+						return;
+					}
+					status = ::curl_ws_recv(m_ws, buffer.data(), buffer.size(), &size, &meta);
 				}
-				status = ::curl_ws_recv(m_ws, buffer.data(), buffer.size(), &size, &meta);
+				check(status);
+				message.append(buffer.data(), size);
+				if(meta->bytesleft == 0 && (meta->flags & CURLWS_CONT) == 0) {
+					message_callback(message);
+					message.clear();
+				}
 			}
-			check(status);
-			message.append(buffer.data(), size);
-			if(meta->bytesleft == 0 && (meta->flags & CURLWS_CONT) == 0) {
-				message_callback(message);
+			catch(...) {
+				// TODO: Log
 				message.clear();
+				connect();
 			}
 		}
 	});
@@ -73,6 +74,16 @@ void ws_connection::stop() {
 		m_select.wake();
 		m_ws_state.get();
 	}
+}
+
+void ws_connection::connect() {
+	auto status = send_request(m_ws);
+	auto status_str = std::to_string(status);
+	logger::log("Websocket connect " + m_url + " : [" + status_str + "]");
+	if(status != 101) {
+		throw exception("Websocket connect failed with status " + status_str);
+	}
+	m_descriptor = get_socket();
 }
 
 int ws_connection::get_socket() {

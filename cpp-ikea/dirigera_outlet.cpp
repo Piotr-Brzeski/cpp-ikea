@@ -37,8 +37,14 @@ dirigera_outlet::dirigera_outlet(std::string const& devices_uri, http_get& get_c
 void dirigera_outlet::update_state(json_value const& json) {
 	static const auto attributes_key = std::string("attributes");
 	static const auto ison_key = std::string("isOn");
-	auto enabled = json[attributes_key][ison_key].get_bool();
-	internal_update(enabled);
+	auto attributes = json.get(attributes_key);
+	if(attributes) {
+		auto status = attributes->get(ison_key);
+		if(status) {
+			auto enabled = status->get_bool();
+			internal_update(enabled);
+		}
+	}
 }
 
 void dirigera_outlet::get_state() {

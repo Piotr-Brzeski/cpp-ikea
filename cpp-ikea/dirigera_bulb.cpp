@@ -74,19 +74,21 @@ void dirigera_bulb::update_state(json_value const& json) {
 	static const auto attributes_key = std::string("attributes");
 	static const auto ison_key = std::string("isOn");
 	static const auto level_key = std::string("lightLevel");
-	auto attributes = json[attributes_key];
-	auto raw_brighness_value = attributes.get(level_key);
-	if(raw_brighness_value) {
-		m_raw_brighness = raw_brighness_value->get_int();
-	}
-	auto enabled_value = attributes.get(ison_key);
-	auto enabled = enabled_value ? enabled_value->get_bool() : true;
-	if(enabled) {
-		auto brightness = brightness_from_raw(m_raw_brighness);
-		internal_update(brightness);
-	}
-	else {
-		internal_update(device_with_brightness::zero_brightness);
+	auto attributes = json.get(attributes_key);
+	if(attributes) {
+		auto raw_brighness_value = attributes->get(level_key);
+		if(raw_brighness_value) {
+			m_raw_brighness = raw_brighness_value->get_int();
+		}
+		auto enabled_value = attributes->get(ison_key);
+		auto enabled = enabled_value ? enabled_value->get_bool() : true;
+		if(enabled) {
+			auto brightness = brightness_from_raw(m_raw_brighness);
+			internal_update(brightness);
+		}
+		else {
+			internal_update(device_with_brightness::zero_brightness);
+		}
 	}
 }
 
